@@ -25,4 +25,4 @@ return {
   end,
 }
 -- test gpg signing in wsl
---
+-- test with ssh and gpg signing and lazygit
