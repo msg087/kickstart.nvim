@@ -7,6 +7,10 @@ return {
   lazy = false,
 
   'github/copilot.vim',
+  --
+  -- comment toggle
+  -- consider terrortylor/nvim-comment as well
+  'tpope/vim-commentary',
 
   -- Database
   'tpope/vim-dadbod',
@@ -20,3 +24,5 @@ return {
     vim.g.db_ui_use_nerd_fonts = 1
   end,
 }
+-- test gpg signing in wsl
+--
