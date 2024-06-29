@@ -69,8 +69,8 @@ vim.opt.cursorline = true -- Show which line your cursor is on
 vim.opt.mouse = 'a'
 vim.opt.scrolloff = 15 -- Minimal number of screen lines to keep above and below the cursor.
 
--- vim.api.nvim_set_option_value('colorcolumn', '80', {})
-vim.api.nvim_set_option_value('colorcolumn', '100', {})
+vim.api.nvim_set_option_value('colorcolumn', '80', {})
+-- vim.api.nvim_set_option_value('colorcolumn', '100', {})
 -- vim.api.nvim_set_option_value('colorcolumn', '120', {})
 
 -- Don't show the mode, since it's already in the status line

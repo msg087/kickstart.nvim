@@ -15,7 +15,12 @@ return {
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
 
-      vim.cmd 'colorscheme material'
+      custom_colors =
+        function(colors)
+          colors.syntax.comments = '#00FF00'
+          -- colors.editor.bg = "#SOME_COLOR",
+          -- colors.main.blue = "#SOME_COLOR",
+        end, vim.cmd 'colorscheme material'
     end,
   },
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
@@ -30,10 +35,11 @@ return {
     'tpope/vim-commentary',
   },
   -- Database
-  { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+  -- { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+  { 'tpope/vim-dadbod', lazy = true },
   {
     'kristijanhusak/vim-dadbod-ui',
-    lazy = true,
+    -- lazy = true,
     -- opts = {
     --   g.db_ui_execute_on_save=true,
     -- },
@@ -74,6 +80,26 @@ return {
     'https://codeberg.org/esensar/nvim-dev-container',
     dependencies = 'nvim-treesitter/nvim-treesitter',
     lazy = true,
+  },
+  {
+    'iamcco/markdown-preview.nvim',
+    cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
+    build = 'cd app && npm install',
+    init = function()
+      vim.g.mkdp_filetypes = { 'markdown' }
+
+      -- " normal/insert
+      -- <Plug>MarkdownPreview
+      -- <Plug>MarkdownPreviewStop
+      -- <Plug>MarkdownPreviewToggle
+      --
+      -- -- " example
+      -- nmap <C-s> <Plug>MarkdownPreview
+      -- nmap <M-s> <Plug>MarkdownPreviewStop
+      -- nmap <C-p> <Plug>MarkdownPreviewToggle
+      --
+    end,
+    ft = { 'markdown' },
   },
   -- disable netrw at the very start of your init.lua
   -- vim.g.loaded_netrw = 1

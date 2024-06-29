@@ -9,22 +9,21 @@ return {
   require('material').setup {
     priority = 1200, -- Make sure to load this before all the other start plugins.
     contrast = {
-      terminal = false, -- Enable contrast for the built-in terminal
+      terminal = true, -- Enable contrast for the built-in terminal
       sidebars = false, -- Enable contrast for sidebar-like windows ( for example Nvim-Tree )
-      floating_windows = false, -- Enable contrast for floating windows
-      cursor_line = false, -- Enable darker background for the cursor line
-      lsp_virtual_text = false, -- Enable contrasted background for lsp virtual text
+      popup_menu = true,
+      floating_windows = true, -- Enable contrast for floating windows
+      cursor_line = true, -- Enable darker background for the cursor line
+      lsp_virtual_text = true, -- Enable contrasted background for lsp virtual text
       non_current_windows = true, -- Enable contrasted background for non-current windows
-      filetypes = { 'lua' }, -- Specify which filetypes get the contrasted (darker) background
+      filetypes = {}, -- Specify which filetypes get the contrasted (darker) background
     },
 
     styles = { -- Give comments style such as bold, italic, underline etc.
       comments = { [[ italic = true ]] },
       strings = { [[ bold = true ]] },
-      keywords = { --[[ underline = true ]]
-      },
-      functions = { --[[ bold = true, undercurl = true ]]
-      },
+      keywords = { [[ underline = true ]] },
+      functions = { [[ bold = true, undercurl = true ]] },
       variables = {},
       operators = {},
       types = {},
@@ -65,7 +64,7 @@ return {
 
     disable = {
       colored_cursor = false, -- Disable the colored cursor
-      borders = true, -- Disable borders between vertically split windows
+      borders = false, -- Disable borders between vertically split windows
       background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
       term_colors = false, -- Prevent the theme from setting terminal colors
       eob_lines = false, -- Hide the end-of-buffer lines
@@ -95,9 +94,18 @@ return {
       -- vim.cmd 'let g:material_style="deep ocean"'
       -- vim.cmd 'let g:material_style="Darker"'
       -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+      -- vim.cmd.hi 'Comment gui=none'
 
       -- vim.cmd 'colorscheme material'
     end,
   },
+
+  require('material').setup {
+    custom_colors = function(colors)
+      colors.syntax.comments = '#00FF00'
+      -- colors.editor.bg = "#SOME_COLOR",
+      -- colors.main.blue = "#SOME_COLOR",
+    end,
+  },
+  -- { require('material.functions').find_style() },
 }

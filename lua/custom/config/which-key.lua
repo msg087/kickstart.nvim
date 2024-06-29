@@ -27,6 +27,12 @@ function M.setup()
       r = { '<Cmd>DBUIRenameBuffer<Cr>', 'Rename buffer' },
       q = { '<Cmd>DBUILastQueryInfo<Cr>', 'Last query info' },
     },
+
+    m = {
+      name = 'Markdown',
+      m = { '<Cmd>MarkdownPreview<Cr>', 'Show MD Preview' },
+      s = { '<Cmd>MarkdownPreviewStop<Cr>', 'Stop MD Preview' },
+    },
   }
 
   whichkey.setup(conf)

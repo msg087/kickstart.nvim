@@ -22,4 +22,18 @@ return {
       },
     },
   },
+
+  -- init = function()
+  --   if vim.fn.argc(-1) == 1 then
+  --     local plugin = require('lazy.core.config').spec.plugins['LazyVim']
+  --     local Opts = require('lazy.core.plugin').values(plugin, 'opts', false)
+  --     local stat = vim.loop.fs_stat(vim.fn.argv(0))
+  --     if stat and stat.type == 'directory' then
+  --       require 'neo-tree'
+  --       vim.defer_fn(function()
+  --         return Opts.colorscheme and vim.cmd.colorscheme(Opts.colorscheme) or vim.cmd.colorscheme 'tokyonight'
+  --       end, 100)
+  --     end
+  --   end
+  -- end,
 }
