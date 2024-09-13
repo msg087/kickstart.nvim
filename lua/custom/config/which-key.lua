@@ -5,10 +5,18 @@ function M.setup()
 
   local conf = {
     window = {
-      border = 'single', -- none, single, double, shadow
+      border = 'double', -- none, single, double, shadow
       position = 'bottom', -- bottom, top
     },
   }
+
+  -- vim.keymap.set('n', '<leader>sca', function()
+  --   builtin.find_files { search_dirs = '/mnt/c/code/aws/' }
+  -- end, { desc = '[S]earch [C]ode [A]WS files' })
+  --
+  -- vim.keymap.set('n', '<leader>sco', function()
+  --   builtin.find_files { search_dirs = '/mnt/c/code/ob/' }
+  -- end, { desc = '[S]earch [C]ode [O]b files' })
 
   local opts = {
     mode = 'n', -- Normal mode
@@ -33,6 +41,12 @@ function M.setup()
       m = { '<Cmd>MarkdownPreview<Cr>', 'Show MD Preview' },
       s = { '<Cmd>MarkdownPreviewStop<Cr>', 'Stop MD Preview' },
     },
+
+    -- c = {
+    --   name = 'code',
+    --   a = { '<Cmd> Telescope find_files search_dirs = {"/mnt/c/code/aws/"}<Cr>', 'Search AWS code' },
+    --   o = { '<Cmd> Telescope find_files search_dirs = {"/mnt/c/code/ob/"}<Cr>', 'Search OB code' },
+    -- },
   }
 
   whichkey.setup(conf)

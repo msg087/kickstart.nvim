@@ -37,7 +37,9 @@ return {
   -- Database
   -- { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
   { 'tpope/vim-dadbod', lazy = true },
+  -- { 'kristijanhusak/vim-dadbod-completion', lazy = true },
   {
+
     'kristijanhusak/vim-dadbod-ui',
     -- lazy = true,
     -- opts = {

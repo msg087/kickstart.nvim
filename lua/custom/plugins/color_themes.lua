@@ -1,3 +1,22 @@
+-- return {
+--   { 'nvim-treesitter/nvim-treesitter', build = ':TSUpdate' },
+--   {
+--     'baliestri/aura-theme',
+--     lazy = false,
+--     priority = 1000,
+--     config = function(plugin)
+--       vim.opt.rtp:append(plugin.dir .. '/packages/neovim')
+--       vim.cmd [[colorscheme aura-dark]]
+--       -- vim.cmd [[colorscheme aura-dark]]
+--       -- Name	Key
+--       -- Aura Dark	aura-dark
+--       -- Aura Dark Soft Text	aura-dark-soft-text
+--       -- Aura Soft Dark	aura-soft-dark
+--       -- Aura Soft Dark Soft Text	aura-soft-dark-soft-text
+--     end,
+--   },
+--   -- :colorscheme aura-dark " Or any Aura theme available
+-- }
 return {
   -- -- { 'marko-cerovac/material.nvim', opts = {} }
   -- {
