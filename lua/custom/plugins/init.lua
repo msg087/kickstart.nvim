@@ -4,25 +4,25 @@ return {
   -- {
   --   vim.cmd 'let g:material_style="deep ocean"',
   -- },
-  {
-    'marko-cerovac/material.nvim',
-    priority = 1000,
-    opts = {},
-    init = function()
-      -- vim.cmd 'let g:material_style="deep ocean"'
-      -- vim.cmd 'let g:material_style="lighter"'
-      vim.cmd 'let g:material_style="darker"'
-      -- You can configure highlights by doing something like:
-      vim.cmd.hi 'Comment gui=none'
+  -- {
+  --   'marko-cerovac/material.nvim',
+  --   priority = 1000,
+  --   opts = {},
+  --   init = function()
+  --     -- vim.cmd 'let g:material_style="deep ocean"'
+  --     -- vim.cmd 'let g:material_style="lighter"'
+  --     vim.cmd 'let g:material_style="darker"'
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi 'Comment gui=none'
 
-      custom_colors =
-        function(colors)
-          colors.syntax.comments = '#00FF00'
-          -- colors.editor.bg = "#SOME_COLOR",
-          -- colors.main.blue = "#SOME_COLOR",
-        end, vim.cmd 'colorscheme material'
-    end,
-  },
+  --     custom_colors =
+  --         function(colors)
+  --           colors.syntax.comments = '#00FF00'
+  --           -- colors.editor.bg = "#SOME_COLOR",
+  --           -- colors.main.blue = "#SOME_COLOR",
+  --         end, vim.cmd 'colorscheme material'
+  --   end,
+  -- },
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
   { 'wakatime/vim-wakatime', lazy = false },
   {
@@ -35,16 +35,16 @@ return {
     'tpope/vim-commentary',
   },
   -- Database
-  -- { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-  { 'tpope/vim-dadbod', lazy = true },
-  -- { 'kristijanhusak/vim-dadbod-completion', lazy = true },
+  { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
+  -- { 'tpope/vim-dadbod', lazy = true },
+  { 'kristijanhusak/vim-dadbod-completion', lazy = true },
   {
 
     'kristijanhusak/vim-dadbod-ui',
-    -- lazy = true,
-    -- opts = {
-    --   g.db_ui_execute_on_save=true,
-    -- },
+    lazy = true,
+    opts = {
+      db_ui_execute_on_save = false,
+    },
     -- }
     dependencies = {
       { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
@@ -55,9 +55,11 @@ return {
       vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
-  {
-    vim.cmd 'let g:db_ui_execute_on_save=0',
-  },
+
+  -- {
+  --   --redundant?
+  --   vim.cmd 'let g:db_ui_execute_on_save=0',
+  -- },
   {
     'ThePrimeagen/harpoon',
     lazy = true,
