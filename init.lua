@@ -905,7 +905,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'typescript', 'tsx', 'javascript' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -975,6 +975,26 @@ require('lazy').setup({
       task = '📌',
       lazy = '💤 ',
     },
+  },
+
+  -- tailwind-tools.lua
+  {
+    'luckasRanarison/tailwind-tools.nvim',
+    name = 'tailwind-tools',
+    build = ':UpdateRemotePlugins',
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-telescope/telescope.nvim', -- optional
+      'neovim/nvim-lspconfig', -- optional
+    },
+    opts = {}, -- your configuration
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    ft = { 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' },
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
   },
 })
 
