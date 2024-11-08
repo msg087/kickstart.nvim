@@ -286,6 +286,23 @@ require('lazy').setup({
   },
 
 
+-- >>>>>>> f57bbc3 (update which-key)
+  --       -- Database
+  --       { '<leader>S', group = 'Database', nowait = false, remap = false },
+  --       { '<leader>Sf', '<Cmd>DBUIFindBuffer<Cr>', desc = 'Find buffer', nowait = false, remap = false },
+  --       { '<leader>Sq', '<Cmd>DBUILastQueryInfo<Cr>', desc = 'Last query info', nowait = false, remap = false },
+  --       { '<leader>Sr', '<Cmd>DBUIRenameBuffer<Cr>', desc = 'Rename buffer', nowait = false, remap = false },
+  --       { '<leader>Su', '<Cmd>DBUIToggle<Cr>', desc = 'Toggle UI', nowait = false, remap = false },
+  --
+  --       --markdown
+  --       { '<leader>m', group = 'Markdown', nowait = false, remap = false },
+  --       { '<leader>mm', '<Cmd>MarkdownPreview<Cr>', desc = 'Show MD Preview', nowait = false, remap = false },
+  --       { '<leader>ms', '<Cmd>MarkdownPreviewStop<Cr>', desc = 'Stop MD Preview', nowait = false, remap = false },
+  --     },
+  --   },
+  -- },
+-- >>>>>>> f57bbc3 (update which-key)
+
   --
   -- NOTE: Plugins can specify dependencies.
   --
