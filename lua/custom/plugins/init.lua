@@ -1,28 +1,4 @@
---
--- See the kickstart.nvim README for more information
 return {
-  -- {
-  --   vim.cmd 'let g:material_style="deep ocean"',
-  -- },
-  -- {
-  --   'marko-cerovac/material.nvim',
-  --   priority = 1000,
-  --   opts = {},
-  --   init = function()
-  --     -- vim.cmd 'let g:material_style="deep ocean"'
-  --     -- vim.cmd 'let g:material_style="lighter"'
-  --     vim.cmd 'let g:material_style="darker"'
-  --     -- You can configure highlights by doing something like:
-  --     vim.cmd.hi 'Comment gui=none'
-
-  --     custom_colors =
-  --         function(colors)
-  --           colors.syntax.comments = '#00FF00'
-  --           -- colors.editor.bg = "#SOME_COLOR",
-  --           -- colors.main.blue = "#SOME_COLOR",
-  --         end, vim.cmd 'colorscheme material'
-  --   end,
-  -- },
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
   { 'wakatime/vim-wakatime', lazy = false },
   {
@@ -60,6 +36,7 @@ return {
   --   --redundant?
   --   vim.cmd 'let g:db_ui_execute_on_save=0',
   -- },
+
   {
     'ThePrimeagen/harpoon',
     lazy = true,
@@ -68,23 +45,17 @@ return {
     'ThePrimeagen/vim-be-good',
     lazy = true,
   },
-  -- {
-  --   'folke/tokyonight.nvim',
-  --   lazy = false,
-  --   priority = 1000,
-  --   opts = {},
-  -- },
   -- { 'Mofiqul/vscode.nvim' },
 
-  {
-    'https://github.com/jamestthompson3/nvim-remote-containers',
-    lazy = true,
-  },
-  {
-    'https://codeberg.org/esensar/nvim-dev-container',
-    dependencies = 'nvim-treesitter/nvim-treesitter',
-    lazy = true,
-  },
+  -- {
+  --   'https://github.com/jamestthompson3/nvim-remote-containers',
+  --   lazy = true,
+  -- },
+  -- {
+  --   'https://codeberg.org/esensar/nvim-dev-container',
+  --   dependencies = 'nvim-treesitter/nvim-treesitter',
+  --   lazy = true,
+  -- },
   {
     'iamcco/markdown-preview.nvim',
     cmd = { 'MarkdownPreviewToggle', 'MarkdownPreview', 'MarkdownPreviewStop' },
