@@ -105,6 +105,36 @@ return { -- Fuzzy Finder (files, lsp, etc)
       builtin.find_files { cwd = vim.fn.stdpath 'config' }
     end, { desc = '[S]earch [N]eovim files' })
 
+    --###### HARPOON
+    -- local harpoon = require 'harpoon'
+    -- harpoon:setup()
+    --
+    -- -- basic telescope configuration
+    -- local conf = require('telescope.config').values
+    -- local function toggle_telescope(harpoon_files)
+    --   local file_paths = {}
+    --   for _, item in ipairs(harpoon_files.items) do
+    --     table.insert(file_paths, item.value)
+    --   end
+    --
+    --   require('telescope.pickers')
+    --     .new({}, {
+    --       prompt_title = 'Harpoon',
+    --       finder = require('telescope.finders').new_table {
+    --         results = file_paths,
+    --       },
+    --       previewer = conf.file_previewer {},
+    --       sorter = conf.generic_sorter {},
+    --     })
+    --     :find()
+    -- end
+    --
+    -- vim.keymap.set('n', '<C-e>', function()
+    --   toggle_telescope(harpoon:list())
+    -- end, { desc = 'Open harpoon window' })
+
+    --############ Harpoon
+
     -- vim.keymap.set('n', '<leader>sc', function()
     --   builtin.find_files { search_dirs = '/mnt/c/code/' }
     -- end, { desc = '[S]earch [C]ode files' })
