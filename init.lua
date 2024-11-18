@@ -46,7 +46,7 @@ I hope you enjoy your Neovim journey,
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -523,6 +523,8 @@ require('lazy').setup({
 
       vim.keymap.set('n', '<leader>sd', require('custom.custom_modules.my_telescope').edit_dotfiles, { desc = '[S]earch [D]otFiles' })
 
+      vim.keymap.set('n', '<leader>So', ':normal vip<CR><PLUG>(DBUI_ExecuteQuery)', { buffer = true, desc = 'run query under cursor (mnemonic: Go)' })
+
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -845,7 +847,6 @@ require('lazy').setup({
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
-        --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
         mapping = cmp.mapping.preset.insert {
           -- Select the [n]ext item
@@ -902,13 +903,14 @@ require('lazy').setup({
         },
       }
 
-      -- cmp.setup.filetype({ 'sql' }, {
-      --   sources = {
-      --     { name = 'kristijanhusak/vim-dadbod-completion' },
-      --     { name = 'vim-dadbod-completion' },
-      --     { name = 'buffer' },
-      --   },
-      -- })
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'kristijanhusak/vim-dadbod-completion' },
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+          { name = 'path' },
+        },
+      })
     end,
   },
 
@@ -1003,6 +1005,23 @@ require('lazy').setup({
       --    - Incremental selection: Included, see `:help nvim-treesitter-incremental-selection-mod`
       --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+    end,
+  },
+  {
+    'kristijanhusak/vim-dadbod-ui',
+    dependencies = {
+      { 'tpope/vim-dadbod', lazy = true },
+      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true }, -- Optional
+    },
+    cmd = {
+      'DBUI',
+      'DBUIToggle',
+      'DBUIAddConnection',
+      'DBUIFindBuffer',
+    },
+    init = function()
+      -- Your DBUI configuration
+      vim.g.db_ui_use_nerd_fonts = 1
     end,
   },
 

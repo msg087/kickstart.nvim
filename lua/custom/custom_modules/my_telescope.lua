@@ -17,7 +17,7 @@ function M.edit_dotfiles()
     hidden = true, -- Optionally include hidden files
     height = 1,
 
-    file_ignore_patterns = { 'nvim/', 'node_modules', '.git' },
+    file_ignore_patterns = { 'nvim/', 'node_modules', '.git/' },
 
     -- layout_strategy = 'horizontal',
     layout_strategy = 'center',

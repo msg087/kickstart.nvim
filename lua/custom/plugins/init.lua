@@ -10,7 +10,7 @@ return {
     -- consider terrortylor/nvim-comment as well
     'tpope/vim-commentary',
   },
-  -- Database
+  -- -- Database
   { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
   -- { 'tpope/vim-dadbod', lazy = true },
   { 'kristijanhusak/vim-dadbod-completion', lazy = true },
@@ -26,7 +26,7 @@ return {
       { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
       { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
     },
-    init = function()
+    config = function()
       -- Your DBUI configuration
       vim.g.db_ui_use_nerd_fonts = 1
       vim.g.db_ui_execute_on_save = 0
