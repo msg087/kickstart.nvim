@@ -38,27 +38,27 @@ function M.setup()
   }
 
   local mappings = {
-    -- { '<leader>S', group = 'Database', nowait = false, remap = false },
-    -- { '<leader>Sf', '<Cmd>DBUIFindBuffer<Cr>', desc = 'Find buffer', nowait = false, remap = false },
-    -- { '<leader>Sq', '<Cmd>DBUILastQueryInfo<Cr>', desc = 'Last query info', nowait = false, remap = false },
-    -- { '<leader>Sr', '<Cmd>DBUIRenameBuffer<Cr>', desc = 'Rename buffer', nowait = false, remap = false },
-    -- { '<leader>Su', '<Cmd>DBUIToggle<Cr>', desc = 'Toggle UI', nowait = false, remap = false },
-    -- { '<leader>m', group = 'Markdown', nowait = false, remap = false },
-    -- { '<leader>mm', '<Cmd>MarkdownPreview<Cr>', desc = 'Show MD Preview', nowait = false, remap = false },
-    -- { '<leader>ms', '<Cmd>MarkdownPreviewStop<Cr>', desc = 'Stop MD Preview', nowait = false, remap = false },
-    S = {
-      name = 'Database',
-      u = { '<Cmd>DBUIToggle<Cr>', 'Toggle UI' },
-      f = { '<Cmd>DBUIFindBuffer<Cr>', 'Find buffer' },
-      r = { '<Cmd>DBUIRenameBuffer<Cr>', 'Rename buffer' },
-      q = { '<Cmd>DBUILastQueryInfo<Cr>', 'Last query info' },
-    },
-
-    m = {
-      name = 'Markdown',
-      m = { '<Cmd>MarkdownPreview<Cr>', 'Show MD Preview' },
-      s = { '<Cmd>MarkdownPreviewStop<Cr>', 'Stop MD Preview' },
-    },
+    { '<leader>S', group = 'Database', nowait = false, remap = false },
+    { '<leader>Sf', '<Cmd>DBUIFindBuffer<Cr>', desc = 'Find buffer', nowait = false, remap = false },
+    { '<leader>Sq', '<Cmd>DBUILastQueryInfo<Cr>', desc = 'Last query info', nowait = false, remap = false },
+    { '<leader>Sr', '<Cmd>DBUIRenameBuffer<Cr>', desc = 'Rename buffer', nowait = false, remap = false },
+    { '<leader>Su', '<Cmd>DBUIToggle<Cr>', desc = 'Toggle UI', nowait = false, remap = false },
+    { '<leader>m', group = 'Markdown', nowait = false, remap = false },
+    { '<leader>mm', '<Cmd>MarkdownPreview<Cr>', desc = 'Show MD Preview', nowait = false, remap = false },
+    { '<leader>ms', '<Cmd>MarkdownPreviewStop<Cr>', desc = 'Stop MD Preview', nowait = false, remap = false },
+    -- S = {
+    --   name = 'Database',
+    --   u = { '<Cmd>DBUIToggle<Cr>', 'Toggle UI' },
+    --   f = { '<Cmd>DBUIFindBuffer<Cr>', 'Find buffer' },
+    --   r = { '<Cmd>DBUIRenameBuffer<Cr>', 'Rename buffer' },
+    --   q = { '<Cmd>DBUILastQueryInfo<Cr>', 'Last query info' },
+    -- },
+    --
+    -- m = {
+    --   name = 'Markdown',
+    --   m = { '<Cmd>MarkdownPreview<Cr>', 'Show MD Preview' },
+    --   s = { '<Cmd>MarkdownPreviewStop<Cr>', 'Stop MD Preview' },
+    -- },
     --
     -- c = {
     --   name = 'code',
@@ -68,7 +68,7 @@ function M.setup()
   }
 
   whichkey.setup(conf)
-  whichkey.register(mappings, opts)
+  -- whichkey.register(mappings, opts)
 end
 
 return M

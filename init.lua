@@ -274,34 +274,31 @@ require('lazy').setup({
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        -- >>>>>>> f57bbc3 (update which-key)
+        -- Database
+        { '<leader>S', group = 'Database', nowait = false, remap = false },
+        { '<leader>Sf', '<Cmd>DBUIFindBuffer<Cr>', desc = 'Find buffer', nowait = false, remap = false },
+        { '<leader>Sq', '<Cmd>DBUILastQueryInfo<Cr>', desc = 'Last query info', nowait = false, remap = false },
+        { '<leader>Sr', '<Cmd>DBUIRenameBuffer<Cr>', desc = 'Rename buffer', nowait = false, remap = false },
+        { '<leader>Su', '<Cmd>DBUIToggle<Cr>', desc = 'Toggle UI', nowait = false, remap = false },
+
+        --markdown
+        { '<leader>m', group = 'Markdown', nowait = false, remap = false },
+        { '<leader>mm', '<Cmd>MarkdownPreview<Cr>', desc = 'Show MD Preview', nowait = false, remap = false },
+        { '<leader>ms', '<Cmd>MarkdownPreviewStop<Cr>', desc = 'Stop MD Preview', nowait = false, remap = false },
+        --     },
+        --   },
+        -- },
+        -- >>>>>>> f57bbc3 (update which-key)
       },
     },
-
   },
   {
-  --   config = function() -- This is the function that runs, AFTER loading
-  --   function()
-  --   require('custom.config.which-key').setup()
-  -- end,
+    --   config = function() -- This is the function that runs, AFTER loading
+    --   function()
+    --   require('custom.config.which-key').setup()
+    -- end,
   },
-
-
--- >>>>>>> f57bbc3 (update which-key)
-  --       -- Database
-  --       { '<leader>S', group = 'Database', nowait = false, remap = false },
-  --       { '<leader>Sf', '<Cmd>DBUIFindBuffer<Cr>', desc = 'Find buffer', nowait = false, remap = false },
-  --       { '<leader>Sq', '<Cmd>DBUILastQueryInfo<Cr>', desc = 'Last query info', nowait = false, remap = false },
-  --       { '<leader>Sr', '<Cmd>DBUIRenameBuffer<Cr>', desc = 'Rename buffer', nowait = false, remap = false },
-  --       { '<leader>Su', '<Cmd>DBUIToggle<Cr>', desc = 'Toggle UI', nowait = false, remap = false },
-  --
-  --       --markdown
-  --       { '<leader>m', group = 'Markdown', nowait = false, remap = false },
-  --       { '<leader>mm', '<Cmd>MarkdownPreview<Cr>', desc = 'Show MD Preview', nowait = false, remap = false },
-  --       { '<leader>ms', '<Cmd>MarkdownPreviewStop<Cr>', desc = 'Stop MD Preview', nowait = false, remap = false },
-  --     },
-  --   },
-  -- },
--- >>>>>>> f57bbc3 (update which-key)
 
   --
   -- NOTE: Plugins can specify dependencies.
