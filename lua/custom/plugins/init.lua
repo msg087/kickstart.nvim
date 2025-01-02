@@ -1,4 +1,120 @@
+-- function MyFoldtext()
+--   local text = vim.treesitter.foldtext()
+--
+--   -- local n_lines = vim.v.foldend - vim.v.foldstart
+--   local n_line = vim.api.nvim_buf_get_lines(0, foldstart - 1, foldstart, false)[1]
+--   local text_lines = ' lines'
+--
+--   if n_lines == 1 then
+--     text_lines = ' line'
+--   end
+--
+--   table.insert(text, { ' - ' .. n_lines .. text_lines, { 'Folded' } })
+--
+--   return text
+-- end
+-- vim.opt.foldtext = 'v:lua.MyFoldtext()'
+
+-- vim.api.nvim_create_autocmd('BufEnter', {
+--   callback = function()
+--     if vim.opt.foldmethod:get() == 'expr' then
+--       vim.schedule(function()
+--         vim.opt.foldmethod = 'expr'
+--       end)
+--     end
+--   end,
+-- })
+
+-- local function get_custom_foldtext(foldtxt_suffix, foldstart)
+--   local line = vim.api.nvim_buf_get_lines(0, foldstart - 1, foldstart, false)[1]
+--   return {
+--     { line, 'Normal' },
+--     foldtxt_suffix,
+--   }
+-- end
+--
+-- _G.get_custom_foldtext = function()
+--   local foldstart = vim.v.foldstart
+--   local line = vim.api.nvim_buf_get_lines(0, foldstart - 1, foldstart, false)[1]
+--   local foldtxt_suffix = get_custom_foldtxt_suffix(foldstart)
+--   return {
+--     { line, 'Normal' },
+--     foldtxt_suffix,
+--   }
+-- end
+--
+local function get_custom_foldtxt_suffix(foldstart)
+  local fold_suffix_str = string.format('  %s [%s lines]', '┉', vim.v.foldend - foldstart + 1)
+  return { fold_suffix_str, 'Folded' }
+end
+
+local function get_custom_foldtext(foldtxt_suffix, foldstart)
+  local line = vim.api.nvim_buf_get_lines(0, foldstart - 1, foldstart, false)[1]
+  return {
+    { line, 'Normal' },
+    foldtxt_suffix,
+  }
+end
+
+-- local function get_custom_foldtxt_suffix(foldstart)
+--   local fold_suffix_str = string.format('  %s [%s lines]', '┉', vim.v.foldend - foldstart + 1)
+--   return { fold_suffix_str, 'Folded' }
+-- end
+
+-- _G.get_custom_foldtext = function()
+--   local foldstart = vim.v.foldstart
+--   local line = vim.api.nvim_buf_get_lines(0, foldstart - 1, foldstart, false)[1]
+--   local foldtxt_suffix = get_custom_foldtxt_suffix(foldstart)
+--   return {
+--     { line, 'Normal' },
+--     foldtxt_suffix,
+--   }
+-- end
+
+--
+--
+_G.get_foldtext = function()
+  local foldstart = vim.v.foldstart
+  local ts_foldtxt = vim.treesitter.foldtext()
+  local foldtxt_suffix = get_custom_foldtxt_suffix(foldstart)
+
+  if type(ts_foldtxt) == 'string' then
+    return get_custom_foldtext(foldtxt_suffix, foldstart)
+  end
+
+  table.insert(ts_foldtxt, foldtxt_suffix)
+  return ts_foldtxt
+end
+
+vim.opt.foldmethod = 'expr'
+vim.opt.foldlevel = 50
+vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.opt.foldtext = 'get_custom_foldtext()'
+-- vim.opt.foldtext = 'v:lua.vim.treesitter.foldtext()'
+
+-- vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+-- vim.opt.foldtext = 'lua.custom.plugins.test_folding_treesitter.'
+-- vim.opt.foldtext = 'v:'
+-- vim.opt.foldtext = 'nvim_treesitter.foldtext()'
+-- vim.cmd [[ set nofoldenable]]
+-- {
+--   function()
+--     vim.opt.foldmethod = 'expr'
+--     --     --     vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+--     --     --     vim.opt.foldtext = 'nvim_treesitter.foldtext()'
+--     --     --     vim.cmd [[ set nofoldenable]]
+--     --     --
+--     --     --     -- vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+--     --     --     -- vim.opt.foldtext = 'v:lua.vim.treesitter.foldtext()'
+--   end,
+
 return {
+  -- {
+  --   config = function()
+  --     require('lua.custom.plugins.test_folding_treesitter').setup()
+  --   end,
+  -- },
+
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
   { 'wakatime/vim-wakatime', lazy = false },
   {
