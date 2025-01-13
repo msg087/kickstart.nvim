@@ -1,4 +1,199 @@
 return {}
+-- local M = {}
+
+-- function M.setup()
+--   -- local harpoon = require 'harpoon'
+--   --
+--   -- -- REQUIRED
+--   -- harpoon:setup()
+--   -- REQUIRED
+--   --
+--   print 'Hello from harpoon module setup!'
+-- end
+-- return M
+
+-- vim.keymap.set('n', '<leader>a', function()
+--   harpoon:list():add()
+-- end)
+-- vim.keymap.set('n', '<C-e>', function()
+--   harpoon.ui:toggle_quick_menu(harpoon:list())
+-- end)
+
+-- vim.keymap.set('n', '<C-h>', function()
+--   harpoon:list():select(1)
+-- end)
+-- vim.keymap.set('n', '<C-t>', function()
+--   harpoon:list():select(2)
+-- end)
+-- vim.keymap.set('n', '<C-n>', function()
+--   harpoon:list():select(3)
+-- end)
+-- vim.keymap.set('n', '<C-s>', function()
+--   harpoon:list():select(4)
+-- end)
+
+-- -- Toggle previous & next buffers stored within Harpoon list
+-- vim.keymap.set('n', '<C-S-P>', function()
+--   harpoon:list():prev()
+-- end)
+-- vim.keymap.set('n', '<C-S-N>', function()
+--   harpoon:list():next()
+-- end)
+
+-- vim.keymap.set('n', '<leader>A', function()
+--   require('harpoon.mark').add_file()
+-- end, { desc = 'Add file to Harpoon' })
+--
+-- vim.keymap.set('n', '<leader>a', function()
+--   require('harpoon.ui').toggle_quick_menu()
+-- end, { desc = 'Toggle Harpoon quick menu' })
+--
+-- vim.keymap.set('n', '<leader>i', function()
+--   harpoon.ui:toggle_quick_menu(harpoon:list())
+-- end, { desc = 'Toggle Harpoon quick menu test' })
+
+-- Initialize Harpoon
+-- local harpoon = require('harpoon').setup()
+-- harpoon:setup()
+
+--
+--   -- Keybindings
+--   local keymap = vim.keymap.set
+--   -- local opts = { noremap = true, silent = true }
+--   -- keymap('n', '<leader>A', function()
+--   --   require('harpoon.mark').add_file()
+--   -- end, vim.tbl_extend('force', opts, { desc = 'Add file to Harpoon' }))
+--
+
+--   for i = 1, 5 do
+--     keymap('n', string.format('<leader>%d', i), function()
+--       require('harpoon.ui').nav_file(i)
+--     end, { desc = string.format('Navigate to Harpoon file %d', i) })
+--   end
+
+--ones that worked
+-- keys = {
+--    {
+--      '<leader>A',
+--      function()
+--        require('harpoon.mark').add_file()
+--      end,
+--      desc = 'Add file to Harpoon',
+--    },
+--    {
+--      '<leader>a',
+--      function()
+--        require('harpoon.ui').toggle_quick_menu()
+--      end,
+--      desc = 'Toggle Harpoon quick menu',
+--    },
+--    {
+--      '<leader>1',
+--      function()
+--        require('harpoon.ui').nav_file(1)
+--      end,
+--      desc = 'Navigate to Harpoon file 1',
+--    },
+--    {
+--      '<leader>2',
+--      function()
+--        require('harpoon.ui').nav_file(2)
+--      end,
+--      desc = 'Navigate to Harpoon file 2',
+--    },
+--    {
+--      '<leader>3',
+--      function()
+--        require('harpoon.ui').nav_file(3)
+--      end,
+--      desc = 'Navigate to Harpoon file 3',
+--    },
+--    {
+--      '<leader>4',
+--      function()
+--        require('harpoon.ui').nav_file(4)
+--      end,
+--      desc = 'Navigate to Harpoon file 4',
+--    },
+--    {
+--      '<leader>5',
+--      function()
+--        require('harpoon.ui').nav_file(5)
+--      end,
+--      desc = 'Navigate to Harpoon file 5',
+--    },
+--  },
+
+-- return M
+
+-- local harpoon = require 'harpoon'
+-- M = {}
+--
+-- M.setup = function()
+--   -- REQUIRED
+--   harpoon:setup()
+--   -- REQUIRED
+--
+--   -- vim.keymap.set('n', '[D', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+--
+--   -- vim.keymap.set("n", "<leader>A", function() harpoon:list():append() end)
+--   vim.keymap.set('n', '<leader>A', function()
+--     harpoon:list():append()
+--   end, { desc = 'Harpoon Add' })
+--
+--   vim.keymap.set('n', '<leader>a', function()
+--     harpoon.ui:toggle_quick_menu(harpoon:list())
+--   end, { desc = 'Harpoon quick menu' })
+--
+--   vim.keymap.set('n', '<leader>1', function()
+--     harpoon:list():select(1)
+--   end, { desc = 'Nav to Harpoon 1' })
+--
+--   vim.keymap.set('n', '<leader>2', function()
+--     harpoon:list():select(2)
+--   end, { desc = 'Nav to Harpoon 2' })
+--
+--   vim.keymap.set('n', '<leader>3', function()
+--     harpoon:list():select(3)
+--   end, { desc = 'Nav to Harpoon 3' })
+--   -- these are cnext/cprev
+--   -- vim.keymap.set("n", "<F4>", function() harpoon:list():select(4) end)
+--   -- vim.keymap.set("n", "<F5>", function() harpoon:list():select(5) end)
+--   -- vim.keymap.set("n", "<F6>", function() harpoon:list():select(6) end)
+--
+--   -- Toggle previous & next buffers stored within Harpoon list
+--   -- vim.keymap.set("n", "<F7>", function() harpoon:list():prev() end)
+--   -- vim.keymap.set("n", "<F8>", function() harpoon:list():next() end)
+--
+--   -- basic telescope configuration
+--   local conf = require('telescope.config').values
+--   local function toggle_telescope(harpoon_files)
+--     local file_paths = {}
+--     for _, item in ipairs(harpoon_files.items) do
+--       table.insert(file_paths, item.value)
+--     end
+--
+--     require('telescope.pickers')
+--       .new({}, {
+--         prompt_title = 'Harpoon',
+--         finder = require('telescope.finders').new_table {
+--           results = file_paths,
+--         },
+--         previewer = conf.file_previewer {},
+--         sorter = conf.generic_sorter {},
+--       })
+--       :find()
+--   end
+--
+--   -- vim.keymap.set("n", "<C-e>", function() toggle_telescope(harpoon:list()) end,
+--   vim.keymap.set('n', '<leader>Sh', function()
+--     toggle_telescope(harpoon:list())
+--   end, { desc = 'Open harpoon window' })
+-- end
+--
+-- return M
+
+-- return {}
 --   'ThePrimeagen/harpoon',
 --   lazy = false,
 --   branch = 'harpoon2',
@@ -154,3 +349,64 @@ return {}
 --
 --     }
 -- })
+
+--chat gpt help
+-- {
+--   'theprimeagen/harpoon',
+--   branch = 'harpoon2',
+--   dependencies = { 'nvim-lua/plenary.nvim' },
+--   config = function()
+--     require('harpoon').setup() -- Initialize Harpoon
+--   end,
+--   keys = {
+--     {
+--       '<leader>A',
+--       function()
+--         require('harpoon.mark').add_file()
+--       end,
+--       desc = 'Add file to Harpoon',
+--     },
+--     {
+--       '<leader>a',
+--       function()
+--         require('harpoon.ui').toggle_quick_menu()
+--       end,
+--       desc = 'Toggle Harpoon quick menu',
+--     },
+--     {
+--       '<leader>1',
+--       function()
+--         require('harpoon.ui').nav_file(1)
+--       end,
+--       desc = 'Navigate to Harpoon file 1',
+--     },
+--     {
+--       '<leader>2',
+--       function()
+--         require('harpoon.ui').nav_file(2)
+--       end,
+--       desc = 'Navigate to Harpoon file 2',
+--     },
+--     {
+--       '<leader>3',
+--       function()
+--         require('harpoon.ui').nav_file(3)
+--       end,
+--       desc = 'Navigate to Harpoon file 3',
+--     },
+--     {
+--       '<leader>4',
+--       function()
+--         require('harpoon.ui').nav_file(4)
+--       end,
+--       desc = 'Navigate to Harpoon file 4',
+--     },
+--     {
+--       '<leader>5',
+--       function()
+--         require('harpoon.ui').nav_file(5)
+--       end,
+--       desc = 'Navigate to Harpoon file 5',
+--     },
+--   },
+-- },
