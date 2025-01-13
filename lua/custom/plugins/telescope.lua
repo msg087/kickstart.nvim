@@ -47,21 +47,611 @@ return { -- Fuzzy Finder (files, lsp, etc)
     -- See `:help telescope` and `:help telescope.setup()`
     --
     --
+
     require('telescope').setup {
+      -- You can put your default mappings / updates / etc. in here
+      --  All the info you're looking for is in `:help telescope.setup()`
+      --
+      -- defaults = {
+      --   mappings = {
+      --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+      --   },
+      -- },
+      -- pickers = {}
+      --
+
       extensions = {
         ['ui-select'] = {
           require('telescope.themes').get_dropdown(),
         },
       },
-    }
 
-    -- Enable Telescope extensions if they are installed
+      -- harpoon2 = function()
+      --   -- basic telescope configuration
+      --   local conf = require('telescope.config').values
+      --   local function toggle_telescope(harpoon_files)
+      --     local file_paths = {}
+      --     for _, item in ipairs(harpoon_files.items) do
+      --       table.insert(file_paths, item.value)
+      --     end
+
+      --     require('telescope.pickers')
+      --       .new({}, {
+      --         prompt_title = 'Harpoon',
+      --         finder = require('telescope.finders').new_table {
+      --           results = file_paths,
+      --         },
+      --         previewer = conf.file_previewer {},
+      --         sorter = conf.generic_sorter {},
+      --       })
+      --       :find()
+      --   end
+
+      --   vim.keymap.set('n', '<leader>tH', function()
+      --     require('telescope').extensions.harpoon.marks()
+      --   end, { desc = '[T]elescope [H]arpoon Marks' })
+
+      --   return harpoon_telescope
+      -- end,
+
+      -- harpoon = function()
+      --   local harpoon = require 'harpoon'
+      --   local harpoon_mark = require 'harpoon.mark'
+      --   local harpoon_ui = require 'harpoon.ui'
+      --   local harpoon_telescope = {}
+
+      --   harpoon_telescope.marks = function()
+      --     -- local marks = harpoon_mark.get_all()
+      --     local marks = harpoon.get_mark_config()
+
+      --     -- {
+      --     -- marks = { {
+      --     -- col = 0,
+      --     -- filename = "plugins/init.lua",
+      --     -- row = 179
+      --     -- }, {
+      --     -- col = 1,
+      --     -- filename = "custom_modules/harpoon.lua",
+      --     -- row = 27
+      --     -- }, {
+      --     -- col = 0,
+      --     -- filename = "plugins/telescope.lua",
+      --     -- row = 521
+      --     -- } }
+      --     -- }
+      --     local entries = {}
+
+      --     for idx, mark in ipairs(marks) do
+      --       table.insert(entries, {
+      --         value = mark.filename,
+      --         ordinal = mark.filename,
+      --         display = string.format('%d: %s', idx, mark.filename),
+      --         path = mark.filename,
+      --         index = idx,
+      --       })
+      --     end
+
+      --     print 'the list is'
+      --     print(entries)
+
+      --     require('telescope.pickers')
+      --       .new({}, {
+      --         prompt_title = 'Harpoon Marks',
+      --         finder = require('telescope.finders').new_table {
+      --           results = entries,
+      --           entry_maker = function(entry)
+      --             return {
+      --               value = entry,
+      --               display = entry.display,
+      --               ordinal = entry.ordinal,
+      --               path = entry.path,
+      --               index = entry.index,
+      --             }
+      --           end,
+      --         },
+      --         sorter = require('telescope.config').values.generic_sorter {},
+      --         attach_mappings = function(_, map)
+      --           local actions = require 'telescope.actions'
+      --           local action_state = require 'telescope.actions.state'
+
+      --           map('i', '<CR>', function()
+      --             local selection = action_state.get_selected_entry()
+      --             actions.close()
+      --             require('harpoon.ui').nav_file(selection.value.index)
+      --           end)
+
+      --           map('n', '<CR>', function()
+      --             local selection = action_state.get_selected_entry()
+      --             actions.close()
+      --             require('harpoon.ui').nav_file(selection.value.index)
+      --           end)
+
+      --           return true
+      --         end,
+
+      --         -- attach_mappings = function(_, map)
+      --         --   map('i', '<CR>', function(bufnr)
+      --         --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --         --     require('telescope.actions').close(bufnr)
+      --         --     harpoon_ui.nav_file(selection.value.index)
+      --         --   end)
+      --         --   map('n', '<CR>', function(bufnr)
+      --         --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --         --     require('telescope.actions').close(bufnr)
+      --         --     harpoon_ui.nav_file(selection.value.index)
+      --         --   end)
+      --         --   return true
+      --         -- end,
+      --       })
+      --       :find()
+      --   end
+
+      --   vim.keymap.set('n', '<leader>tH', function()
+      --     require('telescope').extensions.harpoon.marks()
+      --   end, { desc = '[T]elescope [H]arpoon Marks' })
+
+      --   return harpoon_telescope
+      -- end,
+      -- },
+      -- }
+
+      -- extensions = {
+      --   ['ui-select'] = {
+      --     require('telescope.themes').get_dropdown(),
+      --   },
+
+      --   harpoon = function()
+      --     local harpoon_mark = require 'harpoon.mark'
+      --     local harpoon_ui = require 'harpoon.ui'
+      --     local harpoon_telescope = {}
+
+      --     harpoon_telescope.marks = function()
+      --       local marks = harpoon_mark.get_all()
+      --       local entries = {}
+
+      --       for idx, mark in ipairs(marks) do
+      --         table.insert(entries, {
+      --           value = mark.filename,
+      --           ordinal = mark.filename,
+      --           display = string.format('%d: %s', idx, mark.filename),
+      --           path = mark.filename,
+      --           index = idx,
+      --         })
+      --       end
+
+      --       require('telescope.pickers')
+      --         .new({}, {
+      --           prompt_title = 'Harpoon Marks',
+      --           finder = require('telescope.finders').new_table {
+      --             results = entries,
+      --             entry_maker = function(entry)
+      --               return {
+      --                 value = entry,
+      --                 display = entry.display,
+      --                 ordinal = entry.ordinal,
+      --                 path = entry.path,
+      --                 index = entry.index,
+      --               }
+      --             end,
+      --           },
+      --           sorter = require('telescope.config').values.generic_sorter {},
+      --           attach_mappings = function(_, map)
+      --             local actions = require 'telescope.actions'
+      --             local action_state = require 'telescope.actions.state'
+
+      --             map('i', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               require('harpoon.ui').nav_file(selection.value.index)
+      --             end)
+
+      --             map('n', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               require('harpoon.ui').nav_file(selection.value.index)
+      --             end)
+
+      --             return true
+      --           end,
+
+      --           -- attach_mappings = function(_, map)
+      --           --   map('i', '<CR>', function(bufnr)
+      --           --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --           --     require('telescope.actions').close(bufnr)
+      --           --     harpoon_ui.nav_file(selection.value.index)
+      --           --   end)
+      --           --   map('n', '<CR>', function(bufnr)
+      --           --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --           --     require('telescope.actions').close(bufnr)
+      --           --     harpoon_ui.nav_file(selection.value.index)
+      --           --   end)
+      --           --   return true
+      --           -- end,
+      --         })
+      --         :find()
+
+      --     vim.keymap.set('n', '<leader>tH', function()
+      --       require('telescope').extensions.harpoon.marks()
+      --     end, { desc = '[T]elescope [H]arpoon Marks' })
+
+      --     return harpoon_telescope
+      --   end,
+      -- }
+
+      -- harpoon = function()
+      --       local harpoon_mark = require('harpoon.mark')
+      --       local harpoon_ui = require('harpoon.ui')
+      --       local harpoon_telescope = {}
+
+      --       harpoon_telescope.marks = function()
+      --         local marks = harpoon_mark.get_all()
+      --         local entries = {}
+
+      --         for idx, mark in ipairs(marks) do
+      --           table.insert(entries, {
+      --             value = mark.filename,
+      --             ordinal = mark.filename,
+      --             display = string.format('%d: %s', idx, mark.filename),
+      --             path = mark.filename,
+      --             index = idx,
+      --           })
+      --         end
+
+      --         require('telescope.pickers').new({}, {
+      --           prompt_title = 'Harpoon Marks',
+      --           finder = require('telescope.finders').new_table {
+      --             results = entries,
+      --             entry_maker = function(entry)
+      --               return {
+      --                 value = entry,
+      --                 display = entry.display,
+      --                 ordinal = entry.ordinal,
+      --                 path = entry.path,
+      --                 index = entry.index,
+      --               }
+      --             end,
+      --           },
+      --           sorter = require('telescope.config').values.generic_sorter({}),
+      --           attach_mappings = function(_, map)
+      --             local actions = require('telescope.actions')
+      --             local action_state = require('telescope.actions.state')
+
+      --             map('i', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               harpoon_ui.nav_file(selection.value.index)
+      --             end)
+
+      --             map('n', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               harpoon_ui.nav_file(selection.value.index)
+      --             end)
+
+      --             return true
+      --           end,
+      --         }):find()
+      --       end
+
+      --       return harpoon_telescope
+      --     end,
+      --   },
+
+      -- },
+
+      -- harpoon = function()
+      -- local harpoon_mark = require 'harpoon.mark'
+      -- local harpoon_ui = require 'harpoon.ui'
+      -- local harpoon_telescope = {}
+
+      -- harpoon_telescope.marks = function()
+      -- local marks = harpoon_mark.get_all()
+      -- local entries = {}
+
+      -- for idx, mark in ipairs(marks) do
+      -- table.insert(entries, {
+      --   value = mark.filename,
+      --   ordinal = mark.filename,
+      --   display = string.format('%d: %s', idx, mark.filename),
+      --   path = mark.filename,
+      --   index = idx,
+      -- })
+      -- end
+
+      -- require('telescope.pickers')
+      -- .new({}, {
+      --   prompt_title = 'Harpoon Marks',
+      --   finder = require('telescope.finders').new_table {
+      --     results = entries,
+      --     entry_maker = function(entry)
+      --       return {
+      --         value = entry,
+      --         display = entry.display,
+      --         ordinal = entry.ordinal,
+      --         path = entry.path,
+      --         index = entry.index,
+      --       }
+      --     end,
+      --   },
+      --   sorter = require('telescope.config').values.generic_sorter {},
+      --   attach_mappings = function(_, map)
+      --     local actions = require 'telescope.actions'
+      --     local action_state = require 'telescope.actions.state'
+
+      --     map('i', '<CR>', function()
+      --       local selection = action_state.get_selected_entry()
+      --       actions.close()
+      --       require('harpoon.ui').nav_file(selection.value.index)
+      --     end)
+
+      --     map('n', '<CR>', function()
+      --       local selection = action_state.get_selected_entry()
+      --       actions.close()
+      --       require('harpoon.ui').nav_file(selection.value.index)
+      --     end)
+
+      --     return true
+      --   end,
+      -- :find()
+      -- end
+
+      -- vim.keymap.set('n', '<leader>Sa', function()
+      -- require('telescope').extensions.harpoon.marks()
+      -- end, { desc = '[T]elescope [H]arpoon Marks' })
+
+      -- return harpoon_telescope
+      -- end,
+      -- },
+      -- }
+
+      -- harpoon = function()
+      --   local harpoon_mark = require 'harpoon.mark'
+      --   local harpoon_ui = require 'harpoon.ui'
+      --   local harpoon_telescope = {}
+
+      --   harpoon_telescope.marks = function()
+      --     local marks = harpoon_mark.get_all()
+      --     local entries = {}
+
+      --     for idx, mark in ipairs(marks) do
+      --       table.insert(entries, {
+      --         value = mark.filename,
+      --         ordinal = mark.filename,
+      --         display = string.format('%d: %s', idx, mark.filename),
+      --         path = mark.filename,
+      --         index = idx,
+      --       })
+      --     end
+
+      --     require('telescope.pickers')
+      --       .new({}, {
+      --         prompt_title = 'Harpoon Marks',
+      --         finder = require('telescope.finders').new_table {
+      --           results = entries,
+      --           entry_maker = function(entry)
+      --             return {
+      --               value = entry,
+      --               display = entry.display,
+      --               ordinal = entry.ordinal,
+      --               path = entry.path,
+      --               index = entry.index,
+      --             }
+      --           end,
+      --         },
+      --         sorter = require('telescope.config').values.generic_sorter {},
+      --         attach_mappings = function(_, map)
+      --           map('i', '<CR>', function(bufnr)
+      --             local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --             require('telescope.actions').close(bufnr)
+      --             harpoon_ui.nav_file(selection.value.index)
+      --           end)
+      --           map('n', '<CR>', function(bufnr)
+      --             local selection = require('telescope.actions.state').get_selected_entry(bufnr)
+      --             require('telescope.actions').close(bufnr)
+      --             harpoon_ui.nav_file(selection.value.index)
+      --           end)
+      --           return true
+      --         end,
+      --       })
+      --       :find()
+      --   end
+
+      --   return harpoon_telescope
+      -- end,
+      -- }
+
+      -- require('telescope').setup {
+      --   extensions = {
+      --     ['ui-select'] = {
+      --       require('telescope.themes').get_dropdown(),
+      --     },
+      --     },
+
+      -- require('telescope').setup {
+      --   extensions = {
+      --     ['ui-select'] = {
+      --       require('telescope.themes').get_dropdown(),
+      --     },
+      --   },
+      -- }
+      --
+      -- -- Define the Harpoon Telescope extension
+      -- local harpoon_telescope = function()
+      --   local harpoon_mark = require 'harpoon.mark'
+      --   local harpoon_ui = require 'harpoon.ui'
+      --
+      --   return {
+      --     marks = function()
+      --       local marks = harpoon_mark.get_all()
+      --       local entries = {}
+      --
+      --       -- Process Harpoon marks into Telescope-compatible entries
+      --       for idx, mark in ipairs(marks) do
+      --         table.insert(entries, {
+      --           value = mark.filename,
+      --           ordinal = mark.filename,
+      --           display = string.format('%d: %s', idx, mark.filename),
+      --           path = mark.filename,
+      --           index = idx,
+      --         })
+      --       end
+      --
+      --       require('telescope.pickers')
+      --         .new({}, {
+      --           prompt_title = 'Harpoon Marks',
+      --           finder = require('telescope.finders').new_table {
+      --             results = entries,
+      --             entry_maker = function(entry)
+      --               return {
+      --                 value = entry,
+      --                 display = entry.display,
+      --                 ordinal = entry.ordinal,
+      --                 path = entry.path,
+      --                 index = entry.index,
+      --               }
+      --             end,
+      --           },
+      --           sorter = require('telescope.config').values.generic_sorter {},
+      --           attach_mappings = function(_, map)
+      --             local actions = require 'telescope.actions'
+      --             local action_state = require 'telescope.actions.state'
+      --
+      --             -- Navigate to the selected file in Harpoon
+      --             map('i', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               harpoon_ui.nav_file(selection.index)
+      --             end)
+      --
+      --             map('n', '<CR>', function()
+      --               local selection = action_state.get_selected_entry()
+      --               actions.close()
+      --               harpoon_ui.nav_file(selection.index)
+      --             end)
+      --
+      --             return true
+      --           end,
+      --         })
+      --         :find()
+      --     end,
+      --   }
+      -- end
+      --
+      -- Register the Harpoon extension
+      --
+
+      -- pcall(require('telescope').load_extension, 'fzf')
+      -- pcall(require('telescope').load_extension, 'ui-select')
+      -- pcall(require('telescope').load_extension, 'harpoon')
+      -- pcall(require('telescope').load_extension, 'harpoon2')
+      -- require('telescope').load_extension('ui-select')
+      -- require('telescope').extensions.harpoon = harpoon_telescope()
+
+      -- Keybinding for the Harpoon Telescope picker
+      -- vim.keymap.set('n', '<leader>SH', function()
+      --   require('telescope').extensions.harpoon.marks()
+      -- end, { desc = '[S]earch [H]arpoon Marks' })
+
+      --
+      --
+      --
+      --
+      --       require('telescope').setup {
+      --   extensions = {
+      --     ['ui-select'] = {
+      --       require('telescope.themes').get_dropdown(),
+      --     },
+      --   },
+      -- }
+      --
+      --
+      --     local harpoon_telescope = function()
+      --           local harpoon_mark = require 'harpoon.mark'
+      --           local harpoon_ui = require 'harpoon.ui'
+      --           local harpoon_telescope = {}
+      --
+      --           harpoon_telescope.marks = function()
+      --             local marks = harpoon_mark.get_all()
+      --             local entries = {}
+      --
+      --             for idx, mark in ipairs(marks) do
+      --               table.insert(entries, {
+      --                 value = mark.filename,
+      --                 ordinal = mark.filename,
+      --                 display = string.format('%d: %s', idx, mark.filename),
+      --                 path = mark.filename,
+      --                 index = idx,
+      --               })
+      --             end
+      --
+      --             print 'from telescope picker'
+      --             require('telescope.pickers')
+      --               .new({}, {
+      --                 prompt_title = 'Harpoon Marks',
+      --                 finder = require('telescope.finders').new_table {
+      --                   results = entries,
+      --                   entry_maker = function(entry)
+      --                     return {
+      --                       value = entry,
+      --                       display = entry.display,
+      --                       ordinal = entry.ordinal,
+      --                       path = entry.path,
+      --                       index = entry.index,
+      --                     }
+      --                   end,
+      --                 },
+      --                 sorter = require('telescope.config').values.generic_sorter {},
+      --                 -- attach_mappings = function(_, map)
+      --                 --   local actions = require 'telescope.actions'
+      --                 --   local action_state = require 'telescope.actions.state'
+      --                 --
+      --                 --   map('i', '<CR>', function()
+      --                 --     local selection = action_state.get_selected_entry()
+      --                 --     actions.close()
+      --                 --     require('harpoon.ui').nav_file(selection.value.index)
+      --                 --   end)
+      --                 --
+      --                 --   map('n', '<CR>', function()
+      --                 --     local selection = action_state.get_selected_entry()
+      --                 --     actions.close()
+      --                 --     require('harpoon.ui').nav_file(selection.value.index)
+      --                 --   end)
+      --                 --
+      --                 --   return true
+      --                 -- end,
+      --
+      --                 attach_mappings = function(_, map)
+      --                   map('i', '<CR>', function(bufnr)
+      --                     local selection = require('telescope.actions.state').get_selected_entry()
+      --                     require('telescope.actions').close(bufnr)
+      --                     harpoon_ui.nav_file(selection.value.index)
+      --                   end)
+      --                   map('n', '<CR>', function(bufnr)
+      --                     local selection = require('telescope.actions.state').get_selected_entry()
+      --                     require('telescope.actions').close(bufnr)
+      --                     harpoon_ui.nav_file(selection.value.index)
+      --                   end)
+      --                   return true
+      --                 end,
+      --               })
+      --               :find()
+      --           end
+      --
+      --           vim.keymap.set('n', '<leader>SH', function()
+      --             require('telescope').extensions.harpoon.marks()
+      --           end, { desc = '[T]elescope [H]arpoon Marks' })
+      --
+      --           return harpoon_telescope
+      --         end,
+      --       },
+      --
+    }
+    --     -- Enable Telescope extensions if they are installed
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
-
     -- Load Harpoon extension
     -- pcall(require('telescope').load_extension, 'harpoon')
-    -- pcall(require('telescope').load_extension, 'harpoon2')
+    -- -- pcall(require('telescope').load_extension, 'harpoon2')
 
     -- See `:help telescope.builtin`
     local builtin = require 'telescope.builtin'
@@ -203,6 +793,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 -- }
 
 -- ##############harpoon stuff some worked some didn;t
+
 -- harpoon2 = function()
 --   -- Telescope picker for Harpoon
 --   local conf = require('telescope.config').values
@@ -233,153 +824,3 @@ return { -- Fuzzy Finder (files, lsp, etc)
 --   -- end, { desc = '[T]elescope [H]arpoon Marks2' })
 --   -- vim.keymap.set('n', '<leader>ta', toggle_telescope, { desc = '[T]elescope [H]arpoon2 Marks' })
 -- end,
-
--- harpoon = function()
---   local harpoon_mark = require 'harpoon.mark'
---   local harpoon_ui = require 'harpoon.ui'
---   local harpoon_telescope = {}
-
---   harpoon_telescope.marks = function()
---     local marks = harpoon_mark.get_all()
---     local entries = {}
-
---     for idx, mark in ipairs(marks) do
---       table.insert(entries, {
---         value = mark.filename,
---         ordinal = mark.filename,
---         display = string.format('%d: %s', idx, mark.filename),
---         path = mark.filename,
---         index = idx,
---       })
---     end
-
---     require('telescope.pickers')
---       .new({}, {
---         prompt_title = 'Harpoon Marks',
---         finder = require('telescope.finders').new_table {
---           results = entries,
---           entry_maker = function(entry)
---             return {
---               value = entry,
---               display = entry.display,
---               ordinal = entry.ordinal,
---               path = entry.path,
---               index = entry.index,
---             }
---           end,
---         },
---         sorter = require('telescope.config').values.generic_sorter {},
---         attach_mappings = function(_, map)
---           local actions = require 'telescope.actions'
---           local action_state = require 'telescope.actions.state'
-
---           map('i', '<CR>', function()
---             local selection = action_state.get_selected_entry()
---             actions.close()
---             require('harpoon.ui').nav_file(selection.value.index)
---           end)
-
---           map('n', '<CR>', function()
---             local selection = action_state.get_selected_entry()
---             actions.close()
---             require('harpoon.ui').nav_file(selection.value.index)
---           end)
-
---           return true
---         end,
-
---         -- attach_mappings = function(_, map)
---         --   map('i', '<CR>', function(bufnr)
---         --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
---         --     require('telescope.actions').close(bufnr)
---         --     harpoon_ui.nav_file(selection.value.index)
---         --   end)
---         --   map('n', '<CR>', function(bufnr)
---         --     local selection = require('telescope.actions.state').get_selected_entry(bufnr)
---         --     require('telescope.actions').close(bufnr)
---         --     harpoon_ui.nav_file(selection.value.index)
---         --   end)
---         --   return true
---         -- end,
---       })
---       :find()
---   end
-
---   vim.keymap.set('n', '<leader>tH', function()
---     require('telescope').extensions.harpoon.marks()
---   end, { desc = '[T]elescope [H]arpoon Marks' })
-
---   return harpoon_telescope
--- end,
--- },
--- }
-
--- require('telescope').setup {
---   -- You can put your default mappings / updates / etc. in here
---   --  All the info you're looking for is in `:help telescope.setup()`
---   --
---   -- defaults = {
---   --   mappings = {
---   --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
---   --   },
---   -- },
---   -- pickers = {}
---   extensions = {
---     ['ui-select'] = {
---       require('telescope.themes').get_dropdown(),
---     },
---   },
-
--- harpoon = function()
---       local harpoon_mark = require('harpoon.mark')
---       local harpoon_ui = require('harpoon.ui')
---       local harpoon_telescope = {}
-
---       harpoon_telescope.marks = function()
---         local marks = harpoon_mark.get_all()
---         local entries = {}
-
---         for idx, mark in ipairs(marks) do
---           table.insert(entries, {
---             value = mark.filename,
---             ordinal = mark.filename,
---             display = string.format('%d: %s', idx, mark.filename),
---             path = mark.filename,
---             index = idx,
---           })
---         end
-
---         require('telescope.pickers').new({}, {
---           prompt_title = 'Harpoon Marks',
---           finder = require('telescope.finders').new_table {
---             results = entries,
---             entry_maker = function(entry)
---               return {
---                 value = entry,
---                 display = entry.display,
---                 ordinal = entry.ordinal,
---                 path = entry.path,
---                 index = entry.index,
---               }
---             end,
---           },
---           sorter = require('telescope.config').values.generic_sorter({}),
---           attach_mappings = function(_, map)
---             map('i', '<CR>', function(bufnr)
---               local selection = require('telescope.actions.state').get_selected_entry(bufnr)
---               require('telescope.actions').close(bufnr)
---               harpoon_ui.nav_file(selection.value.index)
---             end)
---             map('n', '<CR>', function(bufnr)
---               local selection = require('telescope.actions.state').get_selected_entry(bufnr)
---               require('telescope.actions').close(bufnr)
---               harpoon_ui.nav_file(selection.value.index)
---             end)
---             return true
---           end,
---         }):find()
---       end
-
---       return harpoon_telescope
---     end,
---   },

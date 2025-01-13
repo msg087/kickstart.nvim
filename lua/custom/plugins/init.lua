@@ -182,60 +182,65 @@ return {
     branch = 'harpoon2',
     dependencies = { 'nvim-lua/plenary.nvim' },
     config = function()
-      require('harpoon').setup() -- Initialize Harpoon
+      -- require('harpoon').setup() -- Initialize Harpoon
+      require('custom.custom_modules.harpoon').setup() -- Initialize Harpoon with the harpoon.lua file
+      -- require('custom.custom_modules.harpoon').test_print()
+      require('custom.custom_modules.harpoon').get_my_list()
     end,
-    keys = {
-      {
-        '<leader>A',
-        function()
-          require('harpoon.mark').add_file()
-        end,
-        desc = 'Add file to Harpoon',
-      },
-      {
-        '<leader>a',
-        function()
-          require('harpoon.ui').toggle_quick_menu()
-        end,
-        desc = 'Toggle Harpoon quick menu',
-      },
-      {
-        '<leader>1',
-        function()
-          require('harpoon.ui').nav_file(1)
-        end,
-        desc = 'Navigate to Harpoon file 1',
-      },
-      {
-        '<leader>2',
-        function()
-          require('harpoon.ui').nav_file(2)
-        end,
-        desc = 'Navigate to Harpoon file 2',
-      },
-      {
-        '<leader>3',
-        function()
-          require('harpoon.ui').nav_file(3)
-        end,
-        desc = 'Navigate to Harpoon file 3',
-      },
-      {
-        '<leader>4',
-        function()
-          require('harpoon.ui').nav_file(4)
-        end,
-        desc = 'Navigate to Harpoon file 4',
-      },
-      {
-        '<leader>5',
-        function()
-          require('harpoon.ui').nav_file(5)
-        end,
-        desc = 'Navigate to Harpoon file 5',
-      },
-    },
   },
+
+  -- keys = {
+  --   -- {
+  --   --   '<leader>A',
+  --   --   function()
+  --   --     require('harpoon.mark').add_file()
+  --   --   end,
+  --   --   desc = 'Add file to Harpoon',
+  --   -- },
+  --   -- {
+  --   --   '<leader>a',
+  --   --   function()
+  --   --     require('harpoon.ui').toggle_quick_menu()
+  --   --   end,
+  --   --   desc = 'Toggle Harpoon quick menu',
+  --   -- },
+  --   {
+  --     '<leader>1',
+  --     function()
+  --       require('harpoon.ui').nav_file(1)
+  --     end,
+  --     desc = 'Navigate to Harpoon file 1',
+  --   },
+  --   {
+  --     '<leader>2',
+  --     function()
+  --       require('harpoon.ui').nav_file(2)
+  --     end,
+  --     desc = 'Navigate to Harpoon file 2',
+  --   },
+  --   {
+  --     '<leader>3',
+  --     function()
+  --       require('harpoon.ui').nav_file(3)
+  --     end,
+  --     desc = 'Navigate to Harpoon file 3',
+  --   },
+  --   {
+  --     '<leader>4',
+  --     function()
+  --       require('harpoon.ui').nav_file(4)
+  --     end,
+  --     desc = 'Navigate to Harpoon file 4',
+  --   },
+  --   {
+  --     '<leader>5',
+  --     function()
+  --       require('harpoon.ui').nav_file(5)
+  --     end,
+  --     desc = 'Navigate to Harpoon file 5',
+  --   },
+  -- },
+  -- },
 
   {
     'ThePrimeagen/vim-be-good',
