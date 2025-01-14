@@ -6,7 +6,7 @@ end
 
 -- Telescope Harpoon extension definition
 M.setup_telescope_harpoon = function()
-  M.get_my_list()
+  -- M.get_my_list()
 
   -- local telescope = require 'telescope'
   -- local pickers = require 'telescope.pickers'
@@ -261,7 +261,19 @@ function M.setup()
   -- local action_state = require 'telescope.actions.state'
 
   -- REQUIRED
-  harpoon.setup {}
+  harpoon.setup {
+    global_settings = {
+      -- ["save_on_toggle"] = false,
+      -- ["save_on_change"] = true,
+      -- ["enter_on_sendcmd"] = false,
+      -- ["tmux_autoclose_windows"] = false,
+      -- ["excluded_filetypes"] = { "harpoon" },
+      ['mark_branch'] = true,
+      -- ["tabline"] = false,
+      -- ["tabline_suffix"] = "   ",
+      -- ["tabline_prefix"] = "   ",
+    },
+  }
 
   -- REQUIRED
   --

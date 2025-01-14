@@ -121,6 +121,7 @@ return {
     'github/copilot.vim',
     lazy = true,
   },
+
   {
     -- comment toggle
     -- consider terrortylor/nvim-comment as well
@@ -129,7 +130,7 @@ return {
   -- -- Database
   { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
   -- { 'tpope/vim-dadbod', lazy = true },
-  { 'kristijanhusak/vim-dadbod-completion', lazy = true },
+  { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
   {
 
     'kristijanhusak/vim-dadbod-ui',

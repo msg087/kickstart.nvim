@@ -784,6 +784,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
+        sql = { 'sql-formatter' },
         --
         -- You can use a sub-list to tell conform to run *until* a formatter
         -- is found.
@@ -826,6 +827,7 @@ require('lazy').setup({
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
       'hrsh7th/cmp-path',
     },
     config = function()
@@ -902,9 +904,8 @@ require('lazy').setup({
 
       cmp.setup.filetype({ 'sql' }, {
         sources = {
-          { name = 'kristijanhusak/vim-dadbod-completion' },
-          { name = 'vim-dadbod-completion' },
           { name = 'buffer' },
+          { name = 'vim-dadbod-completion' },
           { name = 'path' },
         },
       })
