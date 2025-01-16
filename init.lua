@@ -909,6 +909,13 @@ require('lazy').setup({
           { name = 'path' },
         },
       })
+
+      cmp.setup.filetype({ 'sh' }, {
+        sources = {
+          { name = 'buffer' },
+          { name = 'path' },
+        },
+      })
     end,
   },
 
