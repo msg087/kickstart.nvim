@@ -43,6 +43,30 @@
 --   }
 -- end
 --
+-- "n   ^f.<80><fd>5f <80><fd>5ea (NOLOCK)^[^j
+
+-- Function to execute the macro
+-- local function execute_macro()
+--   -- Convert the macro to a string with escape sequences
+--   local macro = 'n ^f.<Esc>5f <Esc>5ea (NOLOCK)<Esc><C-j>'
+
+--   -- Use vim.api.nvim_replace_termcodes to handle special keys
+--   local keys = vim.api.nvim_replace_termcodes(macro, true, false, true)
+
+--   -- Feed the keys into Neovim
+--   vim.api.nvim_feedkeys(keys, 'n', false)
+-- end
+
+-- Map the function to a key combination, e.g., <leader>m
+-- vim.api.nvim_set_keymap('n', '<leader>Sn', 'n ^f.<Esc>5f <Esc>5ea (NOLOCK)<Esc><C-j>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j>', {
+  --NOTE: this needs to have an alias on the table, otherwise the find space wont find one
+  desc = 'add [N]OLOCK',
+  noremap = true,
+  silent = true,
+  expr = false,
+})
+
 local function get_custom_foldtxt_suffix(foldstart)
   local fold_suffix_str = string.format('  %s [%s lines]', '┉', vim.v.foldend - foldstart + 1)
   return { fold_suffix_str, 'Folded' }
