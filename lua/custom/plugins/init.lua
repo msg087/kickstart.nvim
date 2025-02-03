@@ -67,6 +67,15 @@ vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j
   expr = false,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'json',
+  callback = function()
+    vim.opt_local.expandtab = true
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.softtabstop = 2
+  end,
+})
+
 local function get_custom_foldtxt_suffix(foldstart)
   local fold_suffix_str = string.format('  %s [%s lines]', '┉', vim.v.foldend - foldstart + 1)
   return { fold_suffix_str, 'Folded' }
