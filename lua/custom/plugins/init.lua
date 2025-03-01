@@ -242,17 +242,17 @@ return {
   -- },
   --
 
-  { --the working example
-    'theprimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      -- require('harpoon').setup() -- Initialize Harpoon
-      require('custom.custom_modules.harpoon').setup() -- Initialize Harpoon with the harpoon.lua file
-      -- require('custom.custom_modules.harpoon').test_print()
-      require('custom.custom_modules.harpoon').get_my_list()
-    end,
-  },
+  -- { --the working example
+  --   'theprimeagen/harpoon',
+  --   branch = 'harpoon2',
+  --   dependencies = { 'nvim-lua/plenary.nvim' },
+  --   config = function()
+  --     -- require('harpoon').setup() -- Initialize Harpoon
+  --     require('custom.custom_modules.harpoon').setup() -- Initialize Harpoon with the harpoon.lua file
+  --     -- require('custom.custom_modules.harpoon').test_print()
+  --     -- require('custom.custom_modules.harpoon').get_my_list()
+  --   end,
+  -- },
 
   -- keys = {
   --   -- {
