@@ -52,7 +52,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true -- Show which line your cursor is on
 vim.opt.mouse = 'a'
-vim.opt.scrolloff = 15 -- Minimal number of screen lines to keep above and below the cursor.
+vim.opt.scrolloff = 7 -- Minimal number of screen lines to keep above and below the cursor.
 
 vim.api.nvim_set_option_value('colorcolumn', '80', {})
 -- vim.api.nvim_set_option_value('colorcolumn', '100', {})
