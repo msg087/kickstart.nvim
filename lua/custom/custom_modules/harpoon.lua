@@ -1,4 +1,5 @@
 local M = {}
+--NOTE: this was originally setup using harpoon 1 instead of harpoon2, never uninstalled the original!
 
 function M.test_print()
   print 'Hello from harpoon module test_print!'
