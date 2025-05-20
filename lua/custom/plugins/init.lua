@@ -137,6 +137,22 @@ vim.keymap.set('n', '<leader>*', toggle_highlight, { noremap = true, silent = tr
 
 --
 --
+--
+--
+-- Prevent LSP crash from non-serializable `get_language_id`
+local orig_start_client = vim.lsp.start_client
+
+vim.lsp.start_client = function(config)
+  if config and type(config.get_language_id) == 'function' then
+    print '[LSP Patch] Removing non-serializable `get_language_id`'
+    config.get_language_id = nil
+  end
+  return orig_start_client(config)
+end
+
+--
+--
+--
 _G.get_foldtext = function()
   local foldstart = vim.v.foldstart
   local ts_foldtxt = vim.treesitter.foldtext()
@@ -183,7 +199,7 @@ return {
   { 'wakatime/vim-wakatime', lazy = false },
   {
     'github/copilot.vim',
-    lazy = true,
+    -- lazy = true,
   },
 
   {
