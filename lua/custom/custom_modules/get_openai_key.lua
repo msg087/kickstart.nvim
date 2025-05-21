@@ -23,7 +23,7 @@ function M.fetch_api_key(callback)
         print '[API Key Fetcher] No key returned from fetch script.'
         callback(nil)
       else
-        print('[API Key Fetcher] Got key: ' .. key)
+        -- print('[API Key Fetcher] Got key: ' .. key)
         callback(key)
       end
     end,

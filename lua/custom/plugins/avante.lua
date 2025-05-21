@@ -8,10 +8,79 @@ require('custom.custom_modules.get_openai_key').fetch_api_key(function(api_key)
 end)
 
 return {
+
+  -- {
+  --   'ravitemer/mcphub.nvim',
+  --   dependencies = {
+  --     'nvim-lua/plenary.nvim',
+  --   },
+  --   build = 'bundled_build.lua', -- Bundles `mcp-hub` binary along with the neovim plugin
+  --   config = function()
+  --     require('mcphub').setup {
+  --       use_bundled_binary = true, -- Use local `mcp-hub` binary
+  --       extensions = {
+  --         avante = {
+  --           make_slash_commands = true, -- make /slash commands from MCP server prompts
+  --         },
+  --       },
+  --     }
+  --   end,
+  --   -- build = 'npm install -g mcp-hub@latest', -- Installs `mcp-hub` node binary globally
+  --   -- config = function()
+  --   -- require('mcphub').setup()
+  --   -- require('mcphub').setup {
+  --   -- end,
+  -- },
+  --
   {
+    'ravitemer/mcphub.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    build = 'npm install -g mcp-hub@latest',
+    config = function()
+      require('mcphub').setup {
+        port = 3000,
+        config = vim.fn.expand '~/.config/nvim/mcpservers.json',
+        log = {
+          level = vim.log.levels.WARN,
+          to_file = true,
+        },
+        extensions = {
+          avante = {
+            make_slash_commands = true,
+          },
+        },
+        on_ready = function()
+          vim.notify 'MCP Hub is online!'
+        end,
+      }
+    end,
+  },
+
+  {
+
     'yetone/avante.nvim',
     event = 'VeryLazy',
     version = false, -- Never set this value to "*"! Never!
+    -- keys = {
+    --   {
+    --     '<leader>a+',
+    --     function()
+    --       local tree_ext = require 'avante.extensions.nvim_tree'
+    --       tree_ext.add_file()
+    --     end,
+    --     desc = 'Select file in NvimTree',
+    --     ft = 'NvimTree',
+    --   },
+    --   {
+    --     '<leader>a-',
+    --     function()
+    --       local tree_ext = require 'avante.extensions.nvim_tree'
+    --       tree_ext.remove_file()
+    --     end,
+    --     desc = 'Deselect file in NvimTree',
+    --     ft = 'NvimTree',
+    --   },
+    -- },
     opts = {
       -- add any opts here
       -- for example
@@ -25,6 +94,24 @@ return {
         -- api_key = openai_key,
         --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
       },
+
+      -- selector = {
+      --   exclude_auto_select = { 'NvimTree' },
+      -- },
+
+      system_prompt = function()
+        local hub = require('mcphub').get_hub_instance()
+        return hub:get_active_servers_prompt()
+      end,
+
+      -- custom_tools = {
+      --   require('mcphub.extensions.avante').mcp_tool('planning', function()
+      --     return require('avante.utils').get_project_root()
+      --   end),
+      -- },
+      -- custom_tools = {
+      --   require('mcphub.extensions.avante').mcp_tool(),
+      -- },
 
       -- rag_service = {
       --   enabled = false, -- Enables the RAG service
@@ -77,7 +164,6 @@ return {
       },
     },
   },
-
   {
     'jackMort/ChatGPT.nvim',
     cond = fetch_openai_key,
@@ -140,4 +226,69 @@ return {
       'nvim-telescope/telescope.nvim',
     },
   },
+
+  --    {
+  --     "olimorris/codecompanion.nvim",
+  --     dependencies = {
+  --       { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+  --       { "nvim-lua/plenary.nvim" },
+  --       -- Test with blink.cmp
+  --       {
+  --         "saghen/blink.cmp",
+  --         lazy = false,
+  --         version = "*",
+  --         opts = {
+  --           keymap = {
+  --             preset = "enter",
+  --             ["<S-Tab>"] = { "select_prev", "fallback" },
+  --             ["<Tab>"] = { "select_next", "fallback" },
+  --           },
+  --           cmdline = { sources = { "cmdline" } },
+  --           sources = {
+  --             default = { "lsp", "path", "buffer", "codecompanion" },
+  --           },
+  --         },
+  --       },
+  --       -- Test with nvim-cmp
+  --       -- { "hrsh7th/nvim-cmp" },
+  --     },
+  --     opts = {
+  --       --Refer to: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
+  --       strategies = {
+  --         --NOTE: Change the adapter as required
+  --         chat = { adapter = "copilot" },
+  --         inline = { adapter = "copilot" },
+  --       },
+  --       opts = {
+  --         log_level = "DEBUG",
+  --       },
+  --     },
+  --   },
+  -- }
+  --
+  -- require("lazy.minit").repro({ spec = plugins })
+  --
+  -- -- Setup Tree-sitter
+  -- local ts_status, treesitter = pcall(require, "nvim-treesitter.configs")
+  -- if ts_status then
+  --   treesitter.setup({
+  --     ensure_installed = { "lua", "markdown", "markdown_inline", "yaml" },
+  --     highlight = { enable = true },
+  --   })
+  -- end
+
+  -- Setup nvim-cmp
+  -- local cmp_status, cmp = pcall(require, "cmp")
+  -- if cmp_status then
+  --   cmp.setup({
+  --     mapping = cmp.mapping.preset.insert({
+  --       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+  --       ["<C-f>"] = cmp.mapping.scroll_docs(4),
+  --       ["<C-Space>"] = cmp.mapping.complete(),
+  --       ["<C-e>"] = cmp.mapping.abort(),
+  --       ["<CR>"] = cmp.mapping.confirm({ select = true }),
+  --       -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+  --     }),
+  --   })
+  -- end
 }
