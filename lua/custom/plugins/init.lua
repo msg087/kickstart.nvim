@@ -194,6 +194,17 @@ return {
   --     require('lua.custom.plugins.test_folding_treesitter').setup()
   --   end,
   -- },
+  --
+  --
+  --
+  {
+    'nvim-lualine/lualine.nvim',
+    event = 'VeryLazy',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }, -- optional, for file icons
+    config = function()
+      require('lualine').setup()
+    end,
+  },
 
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
   { 'wakatime/vim-wakatime', lazy = false },
@@ -358,6 +369,18 @@ return {
     end,
     ft = { 'markdown' },
   },
+
+  {
+    -- test for mcp servers
+    vim.api.nvim_create_user_command('MCPServers', function()
+      require('custom.custom_modules.print_mcp_servers').print_servers()
+    end, {}),
+
+    vim.api.nvim_create_user_command('MCPTools', function()
+      require('custom.custom_modules.print_mcp_servers').print_server_tools()
+    end, {}),
+  },
+
   -- 'web-tools'.setup({
   --   keymaps = {
   --     rename = nil,  -- by default use same setup of lspconfig
@@ -406,241 +429,3 @@ return {
 -- test gpg signing in wsl
 -- test with ssh and gpg signing and lazygit
 --
-
--- {
---   'theprimeagen/harpoon',
---   branch = 'harpoon2',
---   dependencies = { 'nvim-lua/plenary.nvim' },
---   config = function()
---     require('harpoon'):setup()
---   end,
---   keys = {
---     {
---       '<leader>A',
---       function()
---         require('harpoon'):list():add()
---       end,
---       desc = 'harpoon file',
---     },
---     {
---       '<leader>a',
---       function()
---         local harpoon = require 'harpoon'
---         harpoon.ui:toggle_quick_menu(harpoon:list())
---       end,
---       desc = 'harpoon quick menu',
---     },
---     {
---       '<leader>1',
---       function()
---         require('harpoon'):list():select(1)
---       end,
---       desc = 'harpoon to file 1',
---     },
---     {
---       '<leader>2',
---       function()
---         require('harpoon'):list():select(2)
---       end,
---       desc = 'harpoon to file 2',
---     },
---     {
---       '<leader>3',
---       function()
---         require('harpoon'):list():select(3)
---       end,
---       desc = 'harpoon to file 3',
---     },
---     {
---       '<leader>4',
---       function()
---         require('harpoon'):list():select(4)
---       end,
---       desc = 'harpoon to file 4',
---     },
---     {
---       '<leader>5',
---       function()
---         require('harpoon'):list():select(5)
---       end,
---       desc = 'harpoon to file 5',
---     },
---   },
--- },
-
--- {
---   'theprimeagen/harpoon',
---   branch = 'harpoon2',
---   dependencies = { 'nvim-lua/plenary.nvim' },
---   config = function()
---     require('harpoon'):setup()
---   end,
---   keys = {
---     {
---       '<leader>A',
---       function()
---         require('harpoon'):list():append()
---       end,
---       desc = 'harpoon file',
---     },
---     {
---       '<leader>a',
---       function()
---         local harpoon = require 'harpoon'
---         harpoon.ui:toggle_quick_menu(harpoon:list())
---       end,
---       desc = 'harpoon quick menu',
---     },
---     {
---       '<leader>1',
---       function()
---         require('harpoon'):list():select(1)
---       end,
---       desc = 'harpoon to file 1',
---     },
---     {
---       '<leader>2',
---       function()
---         require('harpoon'):list():select(2)
---       end,
---       desc = 'harpoon to file 2',
---     },
---     {
---       '<leader>3',
---       function()
---         require('harpoon'):list():select(3)
---       end,
---       desc = 'harpoon to file 3',
---     },
---     {
---       '<leader>4',
---       function()
---         require('harpoon'):list():select(4)
---       end,
---       desc = 'harpoon to file 4',
---     },
---     {
---       '<leader>5',
---       function()
---         require('harpoon'):list():select(5)
---       end,
---       desc = 'harpoon to file 5',
---     },
---   },
--- },
-
--- {
---   'ThePrimeagen/harpoon',
---   branch = 'harpoon2',
---   dependencies = { 'nvim-lua/plenary.nvim' },
---   config = function()
---     require('harpoon'):setup()
---   end,
---
---   keys = {
---     {
---       '<leader>A',
---       function()
---         require('harpoon'):list():append()
---       end,
---       desc = 'harpoon file',
---     },
---     {
---       '<leader>a',
---       function()
---         local harpoon = require 'harpoon'
---         harpoon.ui:toggle_quick_menu(harpoon:list())
---       end,
---       desc = 'harpoon quick menu',
---     },
---     {
---       '<leader>1',
---       function()
---         require('harpoon'):list():select(1)
---       end,
---       desc = 'harpoon to file 1',
---     },
---     {
---       '<leader>2',
---       function()
---         require('harpoon'):list():select(2)
---       end,
---       desc = 'harpoon to file 2',
---     },
---     {
---       '<leader>3',
---       function()
---         require('harpoon'):list():select(3)
---       end,
---       desc = 'harpoon to file 3',
---     },
---     {
---       '<leader>4',
---       function()
---         require('harpoon'):list():select(4)
---       end,
---       desc = 'harpoon to file 4',
---     },
---     {
---       '<leader>5',
---       function()
---         require('harpoon'):list():select(5)
---       end,
---       desc = 'harpoon to file 5',
---     },
---   },
---   -- require('custom.plugins.harpoon').setup(),
--- },
-
--- keys = {
---   {
---     '<leader>A',
---     function()
---       require('harpoon.mark').add_file()
---     end,
---     desc = 'Add file to Harpoon',
---   },
---   {
---     '<leader>a',
---     function()
---       require('harpoon.ui').toggle_quick_menu()
---     end,
---     desc = 'Toggle Harpoon quick menu',
---   },
---   {
---     '<leader>1',
---     function()
---       require('harpoon.ui').nav_file(1)
---     end,
---     desc = 'Navigate to Harpoon file 1',
---   },
---   {
---     '<leader>2',
---     function()
---       require('harpoon.ui').nav_file(2)
---     end,
---     desc = 'Navigate to Harpoon file 2',
---   },
---   {
---     '<leader>3',
---     function()
---       require('harpoon.ui').nav_file(3)
---     end,
---     desc = 'Navigate to Harpoon file 3',
---   },
---   {
---     '<leader>4',
---     function()
---       require('harpoon.ui').nav_file(4)
---     end,
---     desc = 'Navigate to Harpoon file 4',
---   },
---   {
---     '<leader>5',
---     function()
---       require('harpoon.ui').nav_file(5)
---     end,
---     desc = 'Navigate to Harpoon file 5',
---   },
--- },
--- },

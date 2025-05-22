@@ -9,119 +9,145 @@ end)
 
 return {
 
-  -- {
-  --   'ravitemer/mcphub.nvim',
-  --   dependencies = {
-  --     'nvim-lua/plenary.nvim',
-  --   },
-  --   build = 'bundled_build.lua', -- Bundles `mcp-hub` binary along with the neovim plugin
-  --   config = function()
-  --     require('mcphub').setup {
-  --       use_bundled_binary = true, -- Use local `mcp-hub` binary
-  --       extensions = {
-  --         avante = {
-  --           make_slash_commands = true, -- make /slash commands from MCP server prompts
-  --         },
-  --       },
-  --     }
-  --   end,
-  --   -- build = 'npm install -g mcp-hub@latest', -- Installs `mcp-hub` node binary globally
-  --   -- config = function()
-  --   -- require('mcphub').setup()
-  --   -- require('mcphub').setup {
-  --   -- end,
-  -- },
-  --
-  {
-    'ravitemer/mcphub.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    build = 'npm install -g mcp-hub@latest',
-    config = function()
-      require('mcphub').setup {
-        port = 3000,
-        config = vim.fn.expand '~/.config/nvim/mcpservers.json',
-        log = {
-          level = vim.log.levels.WARN,
-          to_file = true,
-        },
-        extensions = {
-          avante = {
-            make_slash_commands = true,
-          },
-        },
-        on_ready = function()
-          vim.notify 'MCP Hub is online!'
-        end,
-      }
-    end,
-  },
-
   {
 
     'yetone/avante.nvim',
     event = 'VeryLazy',
     version = false, -- Never set this value to "*"! Never!
-    -- keys = {
-    --   {
-    --     '<leader>a+',
-    --     function()
-    --       local tree_ext = require 'avante.extensions.nvim_tree'
-    --       tree_ext.add_file()
-    --     end,
-    --     desc = 'Select file in NvimTree',
-    --     ft = 'NvimTree',
-    --   },
-    --   {
-    --     '<leader>a-',
-    --     function()
-    --       local tree_ext = require 'avante.extensions.nvim_tree'
-    --       tree_ext.remove_file()
-    --     end,
-    --     desc = 'Deselect file in NvimTree',
-    --     ft = 'NvimTree',
-    --   },
-    -- },
-    opts = {
-      -- add any opts here
-      -- for example
-      provider = 'openai',
-      openai = {
-        endpoint = 'https://api.openai.com/v1',
-        model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
-        timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
-        temperature = 0,
-        max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
-        -- api_key = openai_key,
-        --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+
+    keys = {
+      {
+        '<leader>a+',
+        function()
+          local tree_ext = require 'avante.extensions.nvim_tree'
+          tree_ext.add_file()
+        end,
+        desc = 'Select file in NvimTree',
+        ft = 'NvimTree',
       },
-
-      -- selector = {
-      --   exclude_auto_select = { 'NvimTree' },
-      -- },
-
-      system_prompt = function()
-        local hub = require('mcphub').get_hub_instance()
-        return hub:get_active_servers_prompt()
-      end,
-
-      -- custom_tools = {
-      --   require('mcphub.extensions.avante').mcp_tool('planning', function()
-      --     return require('avante.utils').get_project_root()
-      --   end),
-      -- },
-      -- custom_tools = {
-      --   require('mcphub.extensions.avante').mcp_tool(),
-      -- },
-
-      -- rag_service = {
-      --   enabled = false, -- Enables the RAG service
-      --   host_mount = os.getenv("HOME"), -- Host mount path for the rag service
-      --   provider = "openai", -- The provider to use for RAG service (e.g. openai or ollama)
-      --   llm_model = "", -- The LLM model to use for RAG service
-      --   embed_model = "", -- The embedding model to use for RAG service
-      --   endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
-      -- },
+      {
+        '<leader>a-',
+        function()
+          local tree_ext = require 'avante.extensions.nvim_tree'
+          tree_ext.remove_file()
+        end,
+        desc = 'Deselect file in NvimTree',
+        ft = 'NvimTree',
+      },
     },
+
+    config = function()
+      local avante = require 'avante'
+
+      avante.setup {
+        provider = 'openai',
+        openai = {
+          endpoint = 'https://api.openai.com/v1',
+          model = 'o3-mini-2025-01-31',
+          -- model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
+          timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
+          temperature = 0,
+          max_completion_tokens = 8192, -- Increase this to include reasoning tokens (for reasoning models)
+          -- api_key = openai_key,
+          --reasoning_effort = "medium", -- low|medium|high, only used for reasoning models
+
+          -- selector = {
+          --   exclude_auto_select = { 'NvimTree' },
+          -- },
+        },
+
+        disabled_tools = { --will cause issues with mcphub
+          'list_files', -- Built-in file operations
+          'search_files',
+          'read_file',
+          'create_file',
+          'rename_file',
+          'replace_in_file',
+          'delete_file',
+          'create_dir',
+          'rename_dir',
+          'delete_dir',
+          'bash', -- Built-in terminal access
+        },
+
+        selector = {
+          exclude_auto_select = { 'NvimTree' },
+        },
+
+        system_prompt = function()
+          local hub = require('mcphub').get_hub_instance()
+          return hub and hub:get_active_servers_prompt() or ''
+        end,
+        custom_tools = function()
+          return {
+            require('mcphub.extensions.avante').mcp_tool(),
+          }
+        end,
+
+        --         custom_tools = function()
+        --           local tools = {}
+        --           local hub = require('mcphub').get_hub_instance()
+        --           if not hub or not hub.servers then
+        --             return tools
+        --           end
+
+        --           for _, server in ipairs(hub.servers) do
+        --             if server.prompts then
+        --               for _, prompt in ipairs(server.prompts) do
+        --                 local command_name = '@mcp:' .. server.name .. ':' .. prompt.name
+        --                 table.insert(tools, {
+        --                   name = command_name,
+        --                   description = prompt.description or 'MCP Prompt',
+        --                   handler = function(input)
+        --                     return server:run(prompt.name, input)
+        --                   end,
+        --                 })
+        --               end
+        --             end
+        --           end
+
+        --           return tools
+        --         end,
+
+        -- custom_tools = function()
+        --   local hub = require('mcphub').get_hub_instance()
+        --   local tools = {}
+        --
+        --   for _, server in ipairs(hub.servers or {}) do
+        --     if server.slash_commands then
+        --       table.insert(tools, {
+        --         id = server.name:gsub('%s+', '_'):lower(),
+        --         name = server.name,
+        --         vim.print('server name in for loop:' .. name),
+        --         description = server.description or 'MCP Tool',
+        --         handler = function(input)
+        --           return server:run(input)
+        --         end,
+        --       })
+        --     end
+        --   end
+        --
+        --   vim.schedule(function()
+        --     vim.print 'Loaded Avante MCP Tools:'
+        --     vim.print(tools)
+        --   end)
+        --   return tools
+        -- end,
+        -- return {
+        --     require("mcphub.extensions.avante").mcp_tool(),
+        -- }
+        -- end,
+      }
+    end,
+    -- rag_service = {
+    --   enabled = false, -- Enables the RAG service
+    --   host_mount = os.getenv("HOME"), -- Host mount path for the rag service
+    --   provider = "openai", -- The provider to use for RAG service (e.g. openai or ollama)
+    --   llm_model = "", -- The LLM model to use for RAG service
+    --   embed_model = "", -- The embedding model to use for RAG service
+    --   endpoint = "https://api.openai.com/v1", -- The API endpoint for RAG service
+    -- },
+    --
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     build = 'make',
     -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
@@ -137,6 +163,7 @@ return {
       'ibhagwan/fzf-lua', -- for file_selector provider fzf
       'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
       'zbirenbaum/copilot.lua', -- for providers='copilot'
+      { 'ravitemer/mcphub.nvim', lazy = false },
       {
         -- support for image pasting
         'HakonHarnes/img-clip.nvim',
@@ -164,131 +191,29 @@ return {
       },
     },
   },
-  {
-    'jackMort/ChatGPT.nvim',
-    cond = fetch_openai_key,
-    config = function()
-      -- print '[ChatGPT.nvim] Setting up plugin with api_key_cmd...'
-      require('chatgpt').setup {
-        -- api_key_cmd =  string.format('echo %q', openai_key)
-        -- api_key_cmd = 'op exec fetch_cmd --no-newline',
-
-        openai_params = {
-          -- api_key = openai_key,
-          -- NOTE: model can be a function returning the model name
-          -- this is useful if you want to change the model on the fly
-          -- using commands
-          -- Example:
-          -- model = function()
-          --     if some_condition() then
-          --         return "gpt-4-1106-preview"
-          --     else
-          --         return "gpt-3.5-turbo"
-          --     end
-          -- end,
-          model = 'gpt-4.1-mini-2025-04-14', --0.40 in, 1.60 out
-          -- model = "o3-mini-2025-01-31", -- 1.10 in, 4.40 out
-          -- model = "gpt-4-1106-preview",
-          -- model = 'gpt-4o-2024-08-06', --2.5 in, 10 out per million
-          -- model = "gpt-4.1-2025-04-14", --2.00 in, 8.00 out
-          -- model = "codex-mini-latest", --1.50 in, 6.00 out
-          frequency_penalty = 0,
-          presence_penalty = 0,
-          max_tokens = 4095,
-          temperature = 0.2,
-          top_p = 0.1,
-          n = 1,
-        },
-      }
-
-      -- print('[ChatGPT.nvim] without echo command: ' .. api_key)
-      -- print('[ChatGPT.nvim] Final command: ' .. string.format('echo %q', api_key))
-      require('which-key').add {
-        { '<leader>gg', '<cmd>ChatGPT<CR>', desc = 'ChatGPT', mode = 'n' },
-        { '<leader>ge', '<cmd>ChatGPTEditWithInstruction<CR>', desc = 'Edit with instruction', mode = { 'n', 'v' } },
-        { '<leader>ggc', '<cmd>ChatGPTRun grammar_correction<CR>', desc = 'Grammar Correction', mode = { 'n', 'v' } },
-        { '<leader>gt', '<cmd>ChatGPTRun translate<CR>', desc = 'Translate', mode = { 'n', 'v' } },
-        { '<leader>gk', '<cmd>ChatGPTRun keywords<CR>', desc = 'Keywords', mode = { 'n', 'v' } },
-        { '<leader>gd', '<cmd>ChatGPTRun docstring<CR>', desc = 'Docstring', mode = { 'n', 'v' } },
-        { '<leader>ga', '<cmd>ChatGPTRun add_tests<CR>', desc = 'Add Tests', mode = { 'n', 'v' } },
-        { '<leader>go', '<cmd>ChatGPTRun optimize_code<CR>', desc = 'Optimize Code', mode = { 'n', 'v' } },
-        { '<leader>gs', '<cmd>ChatGPTRun summarize<CR>', desc = 'Summarize', mode = { 'n', 'v' } },
-        { '<leader>gf', '<cmd>ChatGPTRun fix_bugs<CR>', desc = 'Fix Bugs', mode = { 'n', 'v' } },
-        { '<leader>gx', '<cmd>ChatGPTRun explain_code<CR>', desc = 'Explain Code', mode = { 'n', 'v' } },
-        { '<leader>gr', '<cmd>ChatGPTRun roxygen_edit<CR>', desc = 'Roxygen Edit', mode = { 'n', 'v' } },
-        { '<leader>gl', '<cmd>ChatGPTRun code_readability_analysis<CR>', desc = 'Code Readability', mode = { 'n', 'v' } },
-      }
-    end,
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'nvim-lua/plenary.nvim',
-      'folke/trouble.nvim', --optional
-      'nvim-telescope/telescope.nvim',
-    },
-  },
-
-  --    {
-  --     "olimorris/codecompanion.nvim",
-  --     dependencies = {
-  --       { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-  --       { "nvim-lua/plenary.nvim" },
-  --       -- Test with blink.cmp
-  --       {
-  --         "saghen/blink.cmp",
-  --         lazy = false,
-  --         version = "*",
-  --         opts = {
-  --           keymap = {
-  --             preset = "enter",
-  --             ["<S-Tab>"] = { "select_prev", "fallback" },
-  --             ["<Tab>"] = { "select_next", "fallback" },
-  --           },
-  --           cmdline = { sources = { "cmdline" } },
-  --           sources = {
-  --             default = { "lsp", "path", "buffer", "codecompanion" },
-  --           },
-  --         },
-  --       },
-  --       -- Test with nvim-cmp
-  --       -- { "hrsh7th/nvim-cmp" },
-  --     },
-  --     opts = {
-  --       --Refer to: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
-  --       strategies = {
-  --         --NOTE: Change the adapter as required
-  --         chat = { adapter = "copilot" },
-  --         inline = { adapter = "copilot" },
-  --       },
-  --       opts = {
-  --         log_level = "DEBUG",
-  --       },
-  --     },
-  --   },
-  -- }
-  --
-  -- require("lazy.minit").repro({ spec = plugins })
-  --
-  -- -- Setup Tree-sitter
-  -- local ts_status, treesitter = pcall(require, "nvim-treesitter.configs")
-  -- if ts_status then
-  --   treesitter.setup({
-  --     ensure_installed = { "lua", "markdown", "markdown_inline", "yaml" },
-  --     highlight = { enable = true },
-  --   })
-  -- end
-
-  -- Setup nvim-cmp
-  -- local cmp_status, cmp = pcall(require, "cmp")
-  -- if cmp_status then
-  --   cmp.setup({
-  --     mapping = cmp.mapping.preset.insert({
-  --       ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-  --       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-  --       ["<C-Space>"] = cmp.mapping.complete(),
-  --       ["<C-e>"] = cmp.mapping.abort(),
-  --       ["<CR>"] = cmp.mapping.confirm({ select = true }),
-  --       -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-  --     }),
-  --   })
-  -- end
 }
+
+-- keys = {
+--   {
+--     '<leader>a+',
+--     function()
+--       local tree_ext = require 'avante.extensions.nvim_tree'
+--       tree_ext.add_file()
+--     end,
+--     desc = 'Select file in NvimTree',
+--     ft = 'NvimTree',
+--   },
+--   {
+--     '<leader>a-',
+--     function()
+--       local tree_ext = require 'avante.extensions.nvim_tree'
+--       tree_ext.remove_file()
+--     end,
+--     desc = 'Deselect file in NvimTree',
+--     ft = 'NvimTree',
+--   },
+-- },
+--
+--
+--
+--

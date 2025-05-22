@@ -1,0 +1,47 @@
+{
+  "mcpServers": {
+    "brave-search": {
+      "command": "npx",
+      "custom_instructions": {
+        "text": "search tool to get recent docs",
+        "disabled": false
+      },
+      "slash_commands": true,
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "prompts": {
+        "recent_docs": {
+          "tool": "search",
+          "params": {
+            "query": "recent documentation for code"
+          },
+          "description": "Retrieve recent documentation related to code to assist the user using the brave search"
+        }
+      },
+      "env": {
+        "BRAVE_API_KEY": ""
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://app_user:app_password@localhost:5432/vm"
+      ]
+    }
+  },
+  "nativeMCPServers": [
+    {
+      "context7": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@upstash/context7-mcp"
+        ]
+      }
+    }
+  ]
+}
