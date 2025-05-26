@@ -10,7 +10,8 @@ return {
         auto_trigger = true,
         hide_during_completion = vim.g.ai_cmp,
         keymap = {
-          accept = '<CR>',
+          -- accept = false,
+          accept = '<C-f>',
           -- accept = false, -- handled by nvim-cmp / blink.cmp
           next = '<M-]>',
           prev = '<M-[>',
@@ -47,6 +48,6 @@ return {
   -- },
   -- {
   --   'github/copilot.vim',
-  --   -- lazy = true,
-  -- },
+  --  p-- lazy = true,
+  -- }p
 }
