@@ -208,10 +208,6 @@ return {
 
   { vim.api.nvim_set_keymap('i', 'jk', '<Esc>', { noremap = true }) },
   { 'wakatime/vim-wakatime', lazy = false },
-  {
-    'github/copilot.vim',
-    -- lazy = true,
-  },
 
   {
     -- comment toggle
