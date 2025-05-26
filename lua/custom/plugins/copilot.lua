@@ -11,7 +11,7 @@ return {
         hide_during_completion = vim.g.ai_cmp,
         keymap = {
           -- accept = false,
-          accept = '<C-f>',
+          -- accept = '<M-.>',
           -- accept = false, -- handled by nvim-cmp / blink.cmp
           next = '<M-]>',
           prev = '<M-[>',
@@ -29,6 +29,17 @@ return {
       },
     },
   },
+
+  {
+--had to do this to get the keymap to work
+    vim.keymap.set('i', '<M-.>', function()
+    require('copilot.suggestion').accept()
+  print('Alt + . pressed!')
+end, { noremap = true, silent = true })
+  },
+
+
+
   -- {
   --   vim.api.nvim_create_autocmd('User', {
   --     pattern = 'BlinkCmpMenuOpen',
