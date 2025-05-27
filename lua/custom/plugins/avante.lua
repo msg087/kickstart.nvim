@@ -43,7 +43,8 @@ return {
         provider = 'openai',
         openai = {
           endpoint = 'https://api.openai.com/v1',
-          model = 'o3-mini-2025-01-31',
+          model = 'gpt-4o-mini-2024-07-18',
+          -- model = 'o3-mini-2025-01-31',
           -- model = 'gpt-4o', -- your desired model (or use gpt-4o, etc.)
           timeout = 30000, -- Timeout in milliseconds, increase this for reasoning models
           temperature = 0,

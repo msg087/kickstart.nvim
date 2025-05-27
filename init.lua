@@ -709,6 +709,8 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {}, --Commit e04c7cb says to manually install it
         --
+        eslint = {}, -- lint diagnostics & code-actions
+        svelte = {}, -- .svelte files
 
         lua_ls = {
           -- cmd = {...},
