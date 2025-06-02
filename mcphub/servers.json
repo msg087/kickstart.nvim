@@ -1,24 +1,29 @@
 {
   "mcpServers": {
+    "my-test-mcp-server": {
+      "disabled": false,
+      "url": "http://127.0.0.1:9400/mcp",
+      "type": "sse"
+    },
     "brave-search": {
-      "command": "npx",
-      "custom_instructions": {
-        "text": "search tool to get recent docs",
-        "disabled": false
-      },
       "slash_commands": true,
+      "command": "npx",
       "args": [
         "-y",
         "@modelcontextprotocol/server-brave-search"
       ],
       "prompts": {
         "recent_docs": {
-          "tool": "search",
           "params": {
             "query": "recent documentation for code"
           },
+          "tool": "search",
           "description": "Retrieve recent documentation related to code to assist the user using the brave search"
         }
+      },
+      "custom_instructions": {
+        "disabled": false,
+        "text": "search tool to get recent docs"
       },
       "env": {
         "BRAVE_API_KEY": ""
