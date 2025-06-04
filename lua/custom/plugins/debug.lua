@@ -1,6 +1,7 @@
 -- debug.lua
 
 return {
+  {
   -- NOTE: Yes, you can install new plugins here!
   'mfussenegger/nvim-dap',
   -- NOTE: And you can specify dependencies as well
@@ -18,6 +19,7 @@ return {
     -- Add your own debuggers here
     -- 'leoluz/nvim-dap-go',
     --
+    'mfussenegger/nvim-dap-python',
     'theHamsta/nvim-dap-virtual-text',
     'nvim-telescope/telescope-dap.nvim',
   },
@@ -26,22 +28,55 @@ return {
     local dapui = require 'dapui'
 
     require('mason-nvim-dap').setup {
-      -- Makes a best effort to setup the various debuggers with
-      -- reasonable debug configurations
       automatic_setup = true,
-
-      -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
       handlers = {},
-
-      -- You'll need to check that you have the required things installed
-      -- online, please don't ask me how to install them :)
       ensure_installed = {
-        -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
         'bash-debug-adapter',
+        'debugpy',
       },
-    }
+        }
+
+  --   local function test_setup()
+  -- print 'Setting up nvim-dap...'
+  --   end
+
+-- require('dap-python').setup(get_python_path())
+
+    local function get_python_path()
+      -- Check if the current directory has a .venv or venv folder
+      local cwd = vim.fn.getcwd()
+      if vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+        print('Using .venv/bin/python')
+        return cwd .. '/.venv/bin/python'
+      else
+        print('no .venv found!!!')
+    end
+    end
+
+          -- Safe import of dap-python
+    local ok, dap_python = pcall(require, 'dap-python')
+    if ok then
+      dap_python.setup(get_python_path())
+        print('dap-python setup complete with ' .. get_python_path())
+
+      -- Refresh on DirChanged to pick up new venvs
+      vim.api.nvim_create_autocmd("DirChanged", {
+        callback = function()
+          dap_python.setup(get_python_path())
+        end
+      })
+    end
+
+    
+--
+-- vim.api.nvim_create_autocmd("DirChanged", {
+--   callback = function()
+--     require('dap-python').setup(get_python_path())
+--   end,
+-- })
+--
 
     dap.adapters.bashdb = {
       type = 'executable',
@@ -122,4 +157,5 @@ return {
     -- Install golang specific config
     require('dap-go').setup()
   end,
+  },
 }
