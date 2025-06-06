@@ -42,6 +42,7 @@ return {
       avante.setup {
         provider = 'openai',
         openai = {
+          -- endpoint = 'https://api.openai.com/v1',
           endpoint = 'https://api.openai.com/v1',
           model = 'gpt-4o-mini-2024-07-18',
           -- model = 'o3-mini-2025-01-31',

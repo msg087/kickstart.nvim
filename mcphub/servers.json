@@ -3,7 +3,7 @@
     "my-test-mcp-server": {
       "disabled": false,
       "url": "http://127.0.0.1:9400/mcp",
-      "type": "sse"
+      "type": "streamable-http"
     },
     "brave-search": {
       "slash_commands": true,
@@ -12,6 +12,7 @@
         "-y",
         "@modelcontextprotocol/server-brave-search"
       ],
+      "disabled": true,
       "prompts": {
         "recent_docs": {
           "params": {
@@ -21,15 +22,16 @@
           "description": "Retrieve recent documentation related to code to assist the user using the brave search"
         }
       },
+      "env": {
+        "BRAVE_API_KEY": ""
+      },
       "custom_instructions": {
         "disabled": false,
         "text": "search tool to get recent docs"
-      },
-      "env": {
-        "BRAVE_API_KEY": ""
       }
     },
     "postgres": {
+      "disabled": true,
       "command": "npx",
       "args": [
         "-y",

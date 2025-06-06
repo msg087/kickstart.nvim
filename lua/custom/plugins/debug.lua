@@ -43,31 +43,67 @@ return {
   --   end
 
 -- require('dap-python').setup(get_python_path())
+local function get_python_path()
+  local cwd = vim.fn.getcwd()
+  local venv = cwd .. '/.venv/bin/python'
+  if vim.fn.executable(venv) == 1 then
+    print('Using .venv/bin/python')
+    return venv
+  else
+    print('No .venv found!')
+    return nil
+  end
+end
 
-    local function get_python_path()
-      -- Check if the current directory has a .venv or venv folder
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
-        print('Using .venv/bin/python')
-        return cwd .. '/.venv/bin/python'
-      else
-        print('no .venv found!!!')
-    end
-    end
+    --
+    -- local function get_python_path()
+    --   -- Check if the current directory has a .venv or venv folder
+    --   local cwd = vim.fn.getcwd()
+    --   if vim.fn.executable(cwd .. '/.venv/bin/python') == 1 then
+    --     print('Using .venv/bin/python')
+    --     return cwd .. '/.venv/bin/python'
+    --   else
+    --     print('no .venv found!!!')
+    -- end
+    -- end
 
-          -- Safe import of dap-python
-    local ok, dap_python = pcall(require, 'dap-python')
-    if ok then
-      dap_python.setup(get_python_path())
-        print('dap-python setup complete with ' .. get_python_path())
+--           -- Safe import of dap-python
+--     local ok, dap_python = pcall(require, 'dap-python')
+--     if ok then
+--       dap_python.setup(get_python_path())
+--         print('dap-python setup complete with ' .. get_python_path())
+--
+--       -- Refresh on DirChanged to pick up new venvs
+--       vim.api.nvim_create_autocmd("DirChanged", {
+--         callback = function()
+--           dap_python.setup(get_python_path())
+--         end
+--       })
+-- else
+--       print('dap-python not found, skipping setup')
+--     end
 
-      -- Refresh on DirChanged to pick up new venvs
-      vim.api.nvim_create_autocmd("DirChanged", {
-        callback = function()
-          dap_python.setup(get_python_path())
+local ok, dap_python = pcall(require, 'dap-python')
+if ok then
+  local python_path = get_python_path()
+  if python_path then
+    dap_python.setup(python_path)
+    print('dap-python setup complete with ' .. python_path)
+
+    vim.api.nvim_create_autocmd("DirChanged", {
+      callback = function()
+        local new_path = get_python_path()
+        if new_path then
+          dap_python.setup(new_path)
         end
-      })
-    end
+      end,
+    })
+  else
+    print('Skipping dap-python setup: No virtual environment found.')
+  end
+else
+  print('dap-python not found, skipping setup')
+end
 
     
 --
