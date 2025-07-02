@@ -67,6 +67,29 @@ vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j
   expr = false,
 })
 
+-- -- Use spaces instead of tabs in Go files
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "go",
+--   callback = function()
+--     vim.bo.expandtab = true     -- use spaces, not tabs
+--     vim.bo.shiftwidth = 4       -- indentation size
+--     vim.bo.tabstop = 4          -- number of spaces per tab
+--     vim.bo.softtabstop = 4
+--   end,
+-- })
+
+
+
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'go',
+--   callback = function()
+--     vim.opt_local.expandtab = true
+--     vim.opt_local.shiftwidth = 2
+--     vim.opt_local.softtabstop = 2
+--   end,
+-- })
+
+
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'json',
   callback = function()
@@ -237,98 +260,45 @@ return {
     end,
   },
 
-  --chat gpt help
+--   {
+--   'nvim-lua/plenary.nvim',  -- Any already-installed plugin
+--   name = 'go-formatting',   -- optional label
+--   config = function()
+--     -- Format on save for Go files
+--     vim.api.nvim_create_autocmd("BufWritePre", {
+--       pattern = "*.go",
+--       callback = function()
+--         vim.lsp.buf.format({ async = false })
+--       end,
+--     })
+--
+--     -- Manual <leader>f formatting
+--     vim.keymap.set('n', '<leader>f', function()
+--       vim.lsp.buf.format({ async = true })
+--     end, { desc = 'Format buffer' })
+--   end,
+-- },
+
   -- {
-  --   'theprimeagen/harpoon',
-  --   branch = 'harpoon2',
-  --   dependencies = { 'nvim-lua/plenary.nvim' },
-  --   config = function()
-  --     require('harpoon').setup()
-  --     require('custom.plugins.harpoon').setup() -- Initialize Harpoon with the harpoon.lua file
-  --   end,
-  --   keys = {
-  --     {
-  --       '<leader>A',
-  --       function()
-  --         require('harpoon.mark').add_file()
-  --       end,
-  --       desc = 'Add file to Harpoon',
-  --     },
-  --     {
-  --       '<leader>a',
-  --       function()
-  --         require('harpoon.ui').toggle_quick_menu()
-  --       end,
-  --       desc = 'Toggle Harpoon quick menu',
-  --     },
-  --   },
-  -- },
-  --
+  -- -- No plugin needed since you're just running config
+  -- -- You can name it or leave it anonymous
+  -- name = "go-formatting", -- optional
 
-  -- { --the working example
-  --   'theprimeagen/harpoon',
-  --   branch = 'harpoon2',
-  --   dependencies = { 'nvim-lua/plenary.nvim' },
-  --   config = function()
-  --     -- require('harpoon').setup() -- Initialize Harpoon
-  --     require('custom.custom_modules.harpoon').setup() -- Initialize Harpoon with the harpoon.lua file
-  --     -- require('custom.custom_modules.harpoon').test_print()
-  --     -- require('custom.custom_modules.harpoon').get_my_list()
-  --   end,
-  -- },
+  -- config = function()
+  --   -- Format on save for Go files
+  --   vim.api.nvim_create_autocmd("BufWritePre", {
+  --     pattern = "*.go",
+  --     callback = function()
+  --       vim.lsp.buf.format({ async = false })
+  --     end,
+  --   })
 
-  -- keys = {
-  --   -- {
-  --   --   '<leader>A',
-  --   --   function()
-  --   --     require('harpoon.mark').add_file()
-  --   --   end,
-  --   --   desc = 'Add file to Harpoon',
-  --   -- },
-  --   -- {
-  --   --   '<leader>a',
-  --   --   function()
-  --   --     require('harpoon.ui').toggle_quick_menu()
-  --   --   end,
-  --   --   desc = 'Toggle Harpoon quick menu',
-  --   -- },
-  --   {
-  --     '<leader>1',
-  --     function()
-  --       require('harpoon.ui').nav_file(1)
-  --     end,
-  --     desc = 'Navigate to Harpoon file 1',
-  --   },
-  --   {
-  --     '<leader>2',
-  --     function()
-  --       require('harpoon.ui').nav_file(2)
-  --     end,
-  --     desc = 'Navigate to Harpoon file 2',
-  --   },
-  --   {
-  --     '<leader>3',
-  --     function()
-  --       require('harpoon.ui').nav_file(3)
-  --     end,
-  --     desc = 'Navigate to Harpoon file 3',
-  --   },
-  --   {
-  --     '<leader>4',
-  --     function()
-  --       require('harpoon.ui').nav_file(4)
-  --     end,
-  --     desc = 'Navigate to Harpoon file 4',
-  --   },
-  --   {
-  --     '<leader>5',
-  --     function()
-  --       require('harpoon.ui').nav_file(5)
-  --     end,
-  --     desc = 'Navigate to Harpoon file 5',
-  --   },
-  -- },
-  -- },
+  --   -- Manual format with <leader>f
+  --   vim.keymap.set('n', '<leader>f', function()
+  --     vim.lsp.buf.format({ async = true })
+  --   end, { desc = 'Format buffer' })
+  -- end,
+-- },
 
   {
     'ThePrimeagen/vim-be-good',
@@ -377,51 +347,18 @@ return {
     end, {}),
   },
 
-  -- 'web-tools'.setup({
-  --   keymaps = {
-  --     rename = nil,  -- by default use same setup of lspconfig
-  --     repeat_rename = '.', -- . to repeat
-  --   },
-  --   hurl = {  -- hurl default
-  --     show_headers = false, -- do not show http headers
-  --     floating = false,   -- use floating windows (need guihua.lua)
-  --     json5 = false,      -- use json5 parser require json5 treesitter
-  --     formatters = {  -- format the result by filetype
-  --       json = { 'jq' },
-  --       html = { 'prettier', '--parser', 'html' },
-  --     },
-  --   },
-  -- })
+  -- {
+  --   -- Use spaces instead of tabs in Go files
+-- vim.api.nvim_create_autocmd("FileType", {
+  -- pattern = "go",
+  -- callback = function()
+  --   vim.bo.expandtab = true     -- use spaces, not tabs
+  --   vim.bo.shiftwidth = 4       -- indentation size
+  --   vim.bo.tabstop = 4          -- number of spaces per tab
+  --   vim.bo.softtabstop = 4
+  -- end,
+-- })
 
-  -- disable netrw at the very start of your init.lua
-  -- vim.g.loaded_netrw = 1
-  -- vim.g.loaded_netrwPlugin = 1
-  --
-  -- -- optionally enable 24-bit colour
-  -- vim.opt.termguicolors = true
-  --
-  -- -- empty setup using defaults
-  -- require("nvim-tree").setup()
-  --
-  -- -- OR setup with some options
-  -- require("nvim-tree").setup({
-  --   sort = {
-  --     sorter = "case_sensitive",
-  --   },
-  --   view = {
-  --     width = 30,
-  --   },
-  --   renderer = {
-  --     group_empty = true,
-  --   },
-  --   filters = {
-  --     dotfiles = true,
-  --   },
-  -- }),
-  --
-  --
-  --
+  -- },
+
 }
--- test gpg signing in wsl
--- test with ssh and gpg signing and lazygit
---

@@ -699,6 +699,48 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
+        --
+        
+        gopls = {
+  settings = {
+    gopls = {
+      usePlaceholders = true,
+      completeUnimported = true,
+      staticcheck = true,
+      matcher = "Fuzzy",
+      analyses = {
+        unusedparams = true,
+        unusedwrite = true,
+        fieldalignment = true,
+        nilness = true,
+        shadow = true,
+        unusedvariable = true,
+        unusedresult = true,
+      },
+      codelenses = {
+        generate = true,
+        gc_details = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+    },
+  },
+},
+
+
+
+
         pyright = {},
         rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -742,6 +784,7 @@ require('lazy').setup({
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
         'ruff',
+        'gopls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -877,6 +920,14 @@ require('lazy').setup({
       })
 
       cmp.setup.filetype({ 'python' }, {
+        sources = {
+          { name = 'nvim_lsp' },
+          { name = 'buffer' },
+          { name = 'path' },
+        },
+      })
+
+      cmp.setup.filetype({ 'go' }, {
         sources = {
           { name = 'nvim_lsp' },
           { name = 'buffer' },
