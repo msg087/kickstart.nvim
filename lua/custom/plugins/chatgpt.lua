@@ -1,36 +1,7 @@
--- local api_key_fetcher = require 'custom.custom_modules.get_openai_key'
--- local openai_key = api_key_fetcher.fetch_api_key()
-
--- local function fetch_openai_key()
---   -- print '[ChatGPT.nvim] Running fetch-openai-key...'
---
---   local handle = io.popen(fetch_cmd)
---   if not handle then
---     print '[ChatGPT.nvim] Failed to open handle'
---     return false
---   end
---
---   local result = handle:read '*a'
---   handle:close()
---
---   -- print('[ChatGPT.nvim] Raw result: ' .. string.format('%q', result))
---
---   -- result = result and result:gsub('%s+$', '') -- trim trailing whitespace
---
---   if result == '' then
---     print '[ChatGPT.nvim] No key returned from fetch script.'
---     return false
---   end
---
---   api_key = result
---   -- print('[ChatGPT.nvim] Final command: ' .. string.format('echo %q', api_key))
---   -- print '[ChatGPT.nvim] Successfully fetched key.'
---   return true
--- end
---
 return {
   {
     'jackMort/ChatGPT.nvim',
+    enabled = false,
     cond = fetch_openai_key,
     config = function()
       -- print '[ChatGPT.nvim] Setting up plugin with api_key_cmd...'
@@ -154,3 +125,34 @@ return {
   --   },
   -- },
 }
+
+-- local api_key_fetcher = require 'custom.custom_modules.get_openai_key'
+-- local openai_key = api_key_fetcher.fetch_api_key()
+
+-- local function fetch_openai_key()
+--   -- print '[ChatGPT.nvim] Running fetch-openai-key...'
+--
+--   local handle = io.popen(fetch_cmd)
+--   if not handle then
+--     print '[ChatGPT.nvim] Failed to open handle'
+--     return false
+--   end
+--
+--   local result = handle:read '*a'
+--   handle:close()
+--
+--   -- print('[ChatGPT.nvim] Raw result: ' .. string.format('%q', result))
+--
+--   -- result = result and result:gsub('%s+$', '') -- trim trailing whitespace
+--
+--   if result == '' then
+--     print '[ChatGPT.nvim] No key returned from fetch script.'
+--     return false
+--   end
+--
+--   api_key = result
+--   -- print('[ChatGPT.nvim] Final command: ' .. string.format('echo %q', api_key))
+--   -- print '[ChatGPT.nvim] Successfully fetched key.'
+--   return true
+-- end
+--

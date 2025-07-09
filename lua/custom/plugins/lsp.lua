@@ -42,7 +42,7 @@ return {
           end
 
           --TODO: Why did i put this here???
-          map('sd', require('custom.custom_modules.my_telescope').edit_dotfiles, '[S]earch [D]otFiles')
+          -- map('sd', require('custom.custom_modules.my_telescope').edit_dotfiles, '[S]earch [D]otFiles')
 
           --  To jump back, press <C-t>.
           map('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -229,19 +229,59 @@ return {
         --     },
         --   },
         -- },
+        --
+        ruff = {
+          cmd = { 'ruff', 'server', '--preview' },
+          filetypes = { 'python' },
+          init_options = {
+            settings = {
+              -- Tell Ruff where to find your project config (pyproject.toml or ruff.toml)
+              configuration = vim.fn.expand '~/.config/ruff/pyproject.toml',
+              configurationPreference = 'editorFirst',
 
-        pyright = {},
-        rust_analyzer = {},
-        -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
-        --
-        -- Some languages (like typescript) have entire language plugins that can be useful:
-        --    https://github.com/pmizio/typescript-tools.nvim
-        --
+              -- Server/Linter options
+              lineLength = 100,
+              fixAll = true,
+              organizeImports = true,
+              lint = { run = 'onType', preview = true },
+              format = { preview = true },
+              logLevel = 'debug',
+            },
+          },
+          capabilities = {
+            textDocument = {
+              formatting = { dynamicRegistration = true }, -- Let Ruff handle formatting
+              codeAction = { dynamicRegistration = true }, -- Quick fixes & import cleanup
+            },
+          },
+        },
+
+        pyright = {
+          settings = {
+            pyright = {
+              disableOrganizeImports = true,
+            },
+            python = {
+              analysis = {
+                ignore = { '*' },
+                typeCheckingMode = 'basic',
+                useLibraryCodeForTypes = true,
+                autoSearchPaths = true,
+                diagnosticMode = 'openFilesOnly',
+              },
+            },
+          },
+          capabilities = {
+            textDocument = {
+              formatting = { dynamicRegistration = false }, -- Force Ruff to format
+            },
+          },
+        },
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {}, --Commit e04c7cb says to manually install it
         --
-        eslint = {}, -- lint diagnostics & code-actions
-        svelte = {}, -- .svelte files
+        -- eslint = {}, -- lint diagnostics & code-actions
+        -- svelte = {}, -- .svelte files
 
         lua_ls = {
           -- cmd = {...},
