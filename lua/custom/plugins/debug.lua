@@ -98,11 +98,11 @@ if ok then
         end
       end,
     })
-  else
-    print('Skipping dap-python setup: No virtual environment found.')
+  -- else
+  --   print('Skipping dap-python setup: No virtual environment found.')
   end
-else
-  print('dap-python not found, skipping setup')
+-- else
+--   print('dap-python not found, skipping setup')
 end
 
     

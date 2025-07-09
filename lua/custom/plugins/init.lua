@@ -78,8 +78,6 @@ vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j
 --   end,
 -- })
 
-
-
 -- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = 'go',
 --   callback = function()
@@ -88,7 +86,6 @@ vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j
 --     vim.opt_local.softtabstop = 2
 --   end,
 -- })
-
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'json',
@@ -260,24 +257,24 @@ return {
     end,
   },
 
---   {
---   'nvim-lua/plenary.nvim',  -- Any already-installed plugin
---   name = 'go-formatting',   -- optional label
---   config = function()
---     -- Format on save for Go files
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       pattern = "*.go",
---       callback = function()
---         vim.lsp.buf.format({ async = false })
---       end,
---     })
---
---     -- Manual <leader>f formatting
---     vim.keymap.set('n', '<leader>f', function()
---       vim.lsp.buf.format({ async = true })
---     end, { desc = 'Format buffer' })
---   end,
--- },
+  --   {
+  --   'nvim-lua/plenary.nvim',  -- Any already-installed plugin
+  --   name = 'go-formatting',   -- optional label
+  --   config = function()
+  --     -- Format on save for Go files
+  --     vim.api.nvim_create_autocmd("BufWritePre", {
+  --       pattern = "*.go",
+  --       callback = function()
+  --         vim.lsp.buf.format({ async = false })
+  --       end,
+  --     })
+  --
+  --     -- Manual <leader>f formatting
+  --     vim.keymap.set('n', '<leader>f', function()
+  --       vim.lsp.buf.format({ async = true })
+  --     end, { desc = 'Format buffer' })
+  --   end,
+  -- },
 
   -- {
   -- -- No plugin needed since you're just running config
@@ -298,7 +295,7 @@ return {
   --     vim.lsp.buf.format({ async = true })
   --   end, { desc = 'Format buffer' })
   -- end,
--- },
+  -- },
 
   {
     'ThePrimeagen/vim-be-good',
@@ -349,7 +346,7 @@ return {
 
   -- {
   --   -- Use spaces instead of tabs in Go files
--- vim.api.nvim_create_autocmd("FileType", {
+  -- vim.api.nvim_create_autocmd("FileType", {
   -- pattern = "go",
   -- callback = function()
   --   vim.bo.expandtab = true     -- use spaces, not tabs
@@ -357,8 +354,7 @@ return {
   --   vim.bo.tabstop = 4          -- number of spaces per tab
   --   vim.bo.softtabstop = 4
   -- end,
--- })
+  -- })
 
   -- },
-
 }

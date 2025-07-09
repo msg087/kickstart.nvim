@@ -29,14 +29,14 @@ return {
         help = true,
       },
     },
-  },
-
-  {
---had to do this to get the keymap to work
-    vim.keymap.set('i', '<M-.>', function()
-    require('copilot.suggestion').accept()
-  -- print('Alt + . pressed!')
-end, { noremap = true, silent = true })
+    config = function(_, opts)
+      require('copilot').setup(opts)
+      --had to do this to get the keymap to work
+      vim.keymap.set('i', '<M-.>', function()
+        require('copilot.suggestion').accept()
+        -- print('Alt + . pressed!')
+      end, { noremap = true, silent = true })
+    end,
   },
 
 
