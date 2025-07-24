@@ -5,6 +5,22 @@
       "url": "http://127.0.0.1:9400/mcp",
       "type": "streamable-http"
     },
+    "mcp-go-lsp": {
+      "disabled": false,
+      "command": "/home/msg/code/mcp_servers/mcp-language-server/mcp-language-server",
+      "env": {
+        "GOMODCACHE": "/home/msg/go/pkg/mod",
+        "GOCACHE": "/home/msg/.cache/go-build",
+        "GOPATH": "/home/msg/go",
+        "LOG_LEVEL": "DEBUG"
+      },
+      "args": [
+        "--workspace",
+        "/home/msg/code/go_aws_lambda_webhook",
+        "--lsp",
+        "/home/msg/go/bin/gopls"
+      ]
+    },
     "brave-search": {
       "slash_commands": true,
       "command": "npx",
