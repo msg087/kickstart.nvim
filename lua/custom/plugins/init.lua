@@ -57,6 +57,19 @@
 --   vim.api.nvim_feedkeys(keys, 'n', false)
 -- end
 
+-- Run visually selected lines in Molten
+vim.keymap.set('v', '<leader>mr', ':<C-u>MoltenEvaluateVisual<CR>gv', {
+  desc = 'Molten: run visual selection',
+  silent = true,
+  noremap = true,
+})
+
+vim.keymap.set('n', '<leader>me', ':MoltenEvaluateOperator<CR>', {
+  desc = 'Molten: run motion as range',
+  silent = true,
+  noremap = true,
+})
+
 -- Map the function to a key combination, e.g., <leader>m
 -- vim.api.nvim_set_keymap('n', '<leader>Sn', 'n ^f.<Esc>5f <Esc>5ea (NOLOCK)<Esc><C-j>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>Sn', '^f.<Esc>f <Esc>ea (NOLOCK)<Esc>^<C-j>', {
@@ -284,6 +297,26 @@ return {
   --     vim.lsp.buf.format({ async = true })
   --   end, { desc = 'Format buffer' })
   -- end,
+  -- },
+  --
+
+  -- {
+  --   'benlubas/molten-nvim',
+  --   build = ':UpdateRemotePlugins',
+  --   lazy = false,
+  --   init = function()
+  --     vim.g.molten_image_provider = 'kitty' -- optional: or "none", "timg"
+  --     vim.g.molten_output_win_max_height = 20
+  --   end,
+  -- },
+
+  -- {
+  --   'benlubas/molten-nvim',
+  --   build = ':UpdateRemotePlugins',
+  -- },
+  -- {
+  --   molten-nvim
+  --   'jupyter-vim/jupyter-vim',
   -- },
 
   {
