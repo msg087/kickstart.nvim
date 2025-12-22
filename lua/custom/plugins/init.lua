@@ -109,6 +109,13 @@ vim.api.nvim_create_autocmd('FileType', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'make',
+  callback = function()
+    vim.opt_local.expandtab = false
+  end,
+})
+
 local function get_custom_foldtxt_suffix(foldstart)
   local fold_suffix_str = string.format('  %s [%s lines]', '┉', vim.v.foldend - foldstart + 1)
   return { fold_suffix_str, 'Folded' }

@@ -1,5 +1,21 @@
 {
   "mcpServers": {
+    "shadcn": {
+      "args": [
+        "shadcn@latest",
+        "mcp"
+      ],
+      "command": "bunx"
+    },
+    "postgres": {
+      "disabled": true,
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://app_user:app_password@localhost:5432/vm"
+      ],
+      "command": "npx"
+    },
     "my-test-mcp-server": {
       "disabled": false,
       "url": "http://127.0.0.1:9400/mcp",
@@ -45,26 +61,6 @@
         "disabled": false,
         "text": "search tool to get recent docs"
       }
-    },
-    "postgres": {
-      "disabled": true,
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-postgres",
-        "postgresql://app_user:app_password@localhost:5432/vm"
-      ]
     }
-  },
-  "nativeMCPServers": [
-    {
-      "context7": {
-        "command": "npx",
-        "args": [
-          "-y",
-          "@upstash/context7-mcp"
-        ]
-      }
-    }
-  ]
+  }
 }
