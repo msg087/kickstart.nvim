@@ -22,8 +22,7 @@
   (#set! injection.language "sql"))
 
 ; ----------------------------------------------------------
-; 2. HTML blocks (for Evidence components)
-;    Inject JavaScript for components and expressions
+; 2. All HTML blocks (Evidence components)
 ; ----------------------------------------------------------
 ((html_block) @injection.content
   (#set! injection.language "javascript")
@@ -31,35 +30,34 @@
   (#set! injection.include-children))
 
 ; ----------------------------------------------------------
-; 3. Evidence partials in paragraphs
+; 3. All indented code blocks (Evidence content)
+; ----------------------------------------------------------
+((indented_code_block) @injection.content
+  (#set! injection.language "javascript")
+  (#set! injection.combined)
+  (#set! injection.include-children))
+
+; ----------------------------------------------------------
+; 4. Evidence partials in paragraphs
 ; ----------------------------------------------------------
 ((paragraph) @injection.content
   (#lua-match? @injection.content "\\{@partial")
-  (#set! injection.language "svelte"))
+  (#set! injection.language "javascript"))
 
 ; ----------------------------------------------------------
-; 4. Svelte control blocks in paragraphs
+; 5. Svelte control blocks in paragraphs
 ; ----------------------------------------------------------
 ((paragraph) @injection.content
   (#lua-match? @injection.content "\\{#(each|if|await)")
-  (#set! injection.language "svelte"))
+  (#set! injection.language "javascript"))
 
 ((paragraph) @injection.content
   (#lua-match? @injection.content "\\{/(each|if|await)")
-  (#set! injection.language "svelte"))
+  (#set! injection.language "javascript"))
 
 ; ----------------------------------------------------------
-; 5. Svelte expressions in paragraphs
+; 6. Svelte expressions in paragraphs
 ; ----------------------------------------------------------
 ((paragraph) @injection.content
   (#lua-match? @injection.content "\\{[^#/][^}]*\\}")
-  (#set! injection.language "svelte"))
-
-; ----------------------------------------------------------
-; 6. Evidence components in indented code blocks
-; ----------------------------------------------------------
-((indented_code_block) @injection.content
-  (#lua-match? @injection.content "<")
-  (#set! injection.language "html")
-  (#set! injection.combined)
-  (#set! injection.include-children))
+  (#set! injection.language "javascript"))
