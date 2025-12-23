@@ -384,7 +384,8 @@ return {
             settings = {
               -- Tell Ruff where to find your project config (pyproject.toml or ruff.toml)
               configuration = vim.fn.expand '/home/msg/.config/ruff/pyproject.toml',
-              configurationPreference = 'editorFirst',
+              configurationPreference = 'filesystemFirst',
+              -- configurationPreference = 'editorFirst',
 
               -- Server/Linter options
               lineLength = 100,
@@ -444,7 +445,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        -- 'ruff',
+        'ruff',
         'gopls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
