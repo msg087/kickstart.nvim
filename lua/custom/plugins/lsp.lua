@@ -383,7 +383,8 @@ return {
           init_options = {
             settings = {
               -- Tell Ruff where to find your project config (pyproject.toml or ruff.toml)
-              configuration = vim.fn.expand '/home/msg/.config/ruff/pyproject.toml',
+              -- configuration = vim.fn.expand '/home/msg/.config/ruff/pyproject.toml',
+              configuration = vim.fn.expand '/home/msg/.config/ruff/.ruff.toml',
               configurationPreference = 'filesystemFirst',
               -- configurationPreference = 'editorFirst',
 
@@ -599,7 +600,8 @@ return {
       {
         '<leader>f',
         function()
-          require('conform').format { async = true, lsp_format = 'fallback' }
+          -- require('conform').format { async = true, lsp_format = 'fallback' }
+          require('conform').format { async = true }
         end,
         mode = '',
         desc = '[F]ormat buffer',
@@ -622,8 +624,9 @@ return {
         end
       end,
       formatters_by_ft = {
-        lua = { 'stylua' },
-        python = { 'ruff', 'pyright', stop_after_first = true },
+        lua = { 'stylua', lsp_format = 'prefer' },
+        -- python = { 'ruff' },
+        python = { 'ruff', 'pyright', stop_after_first = true, lsp_format = 'prefer' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
 
