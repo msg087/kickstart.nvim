@@ -24,11 +24,17 @@
     - :help lua-guide
     - (or HTML version): https://neovim.io/doc/user/lua-guide.html
 
+
+
+
 Kickstart Guide:
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 --  For more options, you can see `:help option-list`
+--
+local has_luarocks = vim.fn.executable 'luarocks' == 1
+-- vim.notify('LuaRocks available: ' .. tostring(has_luarocks))
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
@@ -92,6 +98,23 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  rocks = {
+    -- enabled = true, -- default: true
+    -- root = vim.fn.stdpath 'data' .. '/lazy-rocks', -- where rocks are installed
+    -- server = "https://lumen-oss.github.io/rocks-binaries/",
+    hererocks = true, -- controls using hererocks vs system luarocks
+  },
+  -- or nil,
+
+  -- rocks = has_luarocks
+  --     and {
+  --       enabled = true, -- default: true
+  --       -- root = vim.fn.stdpath 'data' .. '/lazy-rocks', -- where rocks are installed
+  --       -- server = "https://lumen-oss.github.io/rocks-binaries/",
+  --       hererocks = true, -- controls using hererocks vs system luarocks
+  --     }
+  --   or nil,
+
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
