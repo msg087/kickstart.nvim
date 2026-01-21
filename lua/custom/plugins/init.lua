@@ -373,6 +373,29 @@ return {
     end, {}),
   },
 
+  {
+    'stevearc/conform.nvim',
+    opts = {
+      formatters_by_ft = {
+        markdown = { 'prettier' },
+      },
+      formatters = {
+        prettier = {
+          prepend_args = {
+            '--print-width',
+            '80',
+            '--prose-wrap',
+            'always',
+          },
+        },
+      },
+      format_on_save = {
+        timeout_ms = 3000,
+        lsp_fallback = true,
+      },
+    },
+  },
+
   -- {
   --   -- Use spaces instead of tabs in Go files
   -- vim.api.nvim_create_autocmd("FileType", {
