@@ -1,5 +1,6 @@
 -- Save the original vim.lsp.start
 local orig_lsp_start = vim.lsp.start
+local util = require 'conform.util'
 
 ---@param config table
 ---@diagnostic disable-next-line: duplicate-set-field
@@ -600,12 +601,50 @@ return {
       {
         '<leader>f',
         function()
-          -- require('conform').format { async = true, lsp_format = 'fallback' }
-          require('conform').format { async = true }
+          local ft = vim.bo.filetype
+          local mode = vim.fn.mode()
+
+          local opts = {
+            async = true,
+            lsp_format = (ft == 'sql') and 'never' or 'fallback',
+          }
+
+          -- ONLY visual LINE mode
+          if mode == 'V' then
+            local start_line = vim.fn.line "'<" - 1
+            local end_line = vim.fn.line "'>"
+
+            opts.range = {
+              start = { start_line, 0 },
+              ['end'] = { end_line, 0 },
+            }
+          elseif mode ~= 'n' then
+            -- character-wise / block-wise visual → bail out
+            return
+          end
+
+          require('conform').format(opts)
         end,
-        mode = '',
-        desc = '[F]ormat buffer',
+        mode = { 'n', 'v' },
+        desc = '[F]ormat (buffer or visual lines)',
       },
+
+      -- {
+      --   '<leader>f',
+      --   function()
+      --     local ft = vim.bo.filetype
+      --     local mode = vim.fn.mode()
+      --     -- require('conform').format { async = true, lsp_format = 'fallback' }
+      --     require('conform').format {
+      --       async = true,
+      --       -- SQL → always sqlfluff
+      --       -- Everything else → normal behavior
+      --       lsp_format = (ft == 'sql') and 'never' or 'fallback',
+      --     }
+      --   end,
+      --   mode = '',
+      --   desc = '[F]ormat buffer',
+      -- },
     },
     opts = {
       notify_on_error = false,
@@ -613,6 +652,15 @@ return {
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
+
+        local ft = vim.bo[bufnr].filetype
+        if ft == 'sql' then
+          return {
+            timeout_ms = 2000,
+            lsp_format = 'never',
+          }
+        end
+
         local disable_filetypes = { c = true, cpp = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
@@ -623,12 +671,36 @@ return {
           }
         end
       end,
+
+      -- formatters = {
+      --   sqlfluff = {
+      --     command = 'sqlfluff',
+      --     args = {
+      --       'format',
+      --       '--config',
+      --       vim.fn.expand '~/.config/sqlfluff/.sqlfluff',
+      --       '--dialect',
+      --       'tsql',
+      --       '--disable-progress-bar',
+      --       '$FILENAME',
+      --     },
+      --     stdin = false,
+      --     -- 🔑 THIS FIXES "Root directory not found"
+      --     cwd = util.root_file {
+      --       '.sqlfluff',
+      --       'pyproject.toml',
+      --       '.git',
+      --     },
+      --   },
+      -- },
+
       formatters_by_ft = {
         lua = { 'stylua', lsp_format = 'prefer' },
         -- python = { 'ruff' },
         python = { 'ruff', 'pyright', stop_after_first = true, lsp_format = 'prefer' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
+        -- sql = { 'sqlfluff', lsp_format = 'never' },
 
         -- You can use 'stop_after_first' to run the first available formatter from the list
         javascript = { 'prettierd', 'prettier', stop_after_first = true },
