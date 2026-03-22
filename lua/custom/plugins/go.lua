@@ -8,7 +8,17 @@ return {
     },
     ft = { 'go', 'gomod' },
     config = function()
-      require('go').setup()
+      require('go').setup {
+        ai = {
+          enable = true,
+          provider = 'copilot',
+          -- provider = 'openai',
+          -- model = 'gpt-5-mini',
+          -- api_key_env = 'AZURE_OPENAI_API_KEY',
+          -- base_url = 'https://jsr-ai-foundary.openai.azure.com/openai/v1',
+          confirm = false,
+        },
+      }
       lsp_on_attach = true
 
       require('which-key').add {

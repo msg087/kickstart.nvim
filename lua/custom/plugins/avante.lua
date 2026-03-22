@@ -8,6 +8,10 @@ require('custom.custom_modules.get_openai_key').fetch_api_key(function(api_key)
 end)
 
 return {
+  {
+    'zbirenbaum/copilot.lua', -- for providers='copilot'
+    enabled = true,
+  },
 
   {
 
