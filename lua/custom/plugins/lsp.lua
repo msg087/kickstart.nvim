@@ -698,6 +698,7 @@ return {
 
       formatters_by_ft = {
         lua = { 'stylua', lsp_format = 'prefer' },
+        go = { 'gofumpt', lsp_format = 'prefer' },
         -- python = { 'ruff' },
         -- python = { 'ruff', stop_after_first = true, lsp_format = 'prefer' },
         -- python = { 'ruff', lsp_format = 'prefer' },
