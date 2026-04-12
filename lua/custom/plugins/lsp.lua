@@ -611,6 +611,13 @@ return {
             lsp_format = (ft == 'sql') and 'never' or 'fallback',
           }
 
+          if ft == 'xml' then
+            local view = vim.fn.winsaveview()
+            vim.cmd 'silent keepjumps normal! gg=G'
+            vim.fn.winrestview(view)
+            return
+          end
+
           -- ONLY visual LINE mode
           if mode == 'V' then
             local start_line = vim.fn.line "'<" - 1
@@ -663,6 +670,13 @@ return {
           }
         end
 
+        if ft == 'xml' then
+          local view = vim.fn.winsaveview()
+          vim.cmd 'silent keepjumps normal! gg=G'
+          vim.fn.winrestview(view)
+          return nil
+        end
+
         local disable_filetypes = { c = true, cpp = true }
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
@@ -673,6 +687,31 @@ return {
           }
         end
       end,
+
+      -- -- install sudo apt install libxml2-utils
+      -- formatters = {
+      --   xmllint = {
+      --     command = 'xmllint',
+      --     -- args = { '--format', '-' },
+      --     args = { '--nocompact', '--pretty', '2', '-' },
+      --     stdin = true,
+      --     stderr = true,
+      --   },
+      -- },
+
+      -- formatters = {
+      --   xmlformatter = {
+      --     command = 'xmlformatter',
+      --     args = {
+      --       '--indentation',
+      --       '2',
+      --       '--collapse-content',
+      --       'false',
+      --       '--line-separator',
+      --       '\n',
+      --     },
+      --   },
+      -- },
 
       -- formatters = {
       --   sqlfluff = {
@@ -699,6 +738,8 @@ return {
       formatters_by_ft = {
         lua = { 'stylua', lsp_format = 'prefer' },
         go = { 'gofumpt', lsp_format = 'prefer' },
+        -- xml = { 'xmllint', lsp_format = 'never' },
+        -- xml = { 'xmlformatter', lsp_format = 'prefer' },
         -- python = { 'ruff' },
         -- python = { 'ruff', stop_after_first = true, lsp_format = 'prefer' },
         -- python = { 'ruff', lsp_format = 'prefer' },
