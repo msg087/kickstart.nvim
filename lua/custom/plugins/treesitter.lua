@@ -34,6 +34,12 @@ return {
         'tsv',
         'toml',
         'query',
+        'go',
+        'gomod',
+        'gosum',
+        'gotmpl',
+        'comment',
+        'gowork',
       }
 
       -- Install parsers
