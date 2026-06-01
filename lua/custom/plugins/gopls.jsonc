@@ -1,0 +1,110 @@
+gopls = {
+  settings = {
+    gopls = {
+      -- ========================
+      -- BUILD / WORKSPACE
+      -- ========================
+      buildFlags = { "-tags=integration" },
+      env = {},
+      directoryFilters = { "-.git", "-node_modules", "-vendor" },
+      expandWorkspaceToModule = true,
+      standaloneTags = { "ignore" },
+
+      -- ========================
+      -- FORMATTING
+      -- ========================
+      gofumpt = true,
+      local = "your/module", -- important for import grouping
+
+      -- ========================
+      -- COMPLETION
+      -- ========================
+      usePlaceholders = true,
+      completeUnimported = true,
+      completeFunctionCalls = true,
+      deepCompletion = true,
+      matcher = "Fuzzy",
+      symbolMatcher = "FastFuzzy",
+      completionBudget = "200ms",
+
+      -- ========================
+      -- DIAGNOSTICS / ANALYSIS
+      -- ========================
+      staticcheck = true,
+      vulncheck = "Imports",
+      diagnosticsDelay = "500ms",
+      diagnosticsTrigger = "Edit",
+      analysisProgressReporting = true,
+
+      analyses = {
+        unusedparams = true,
+        unusedwrite = true,
+        nilness = true,
+        shadow = true,
+        unusedvariable = true,
+        unusedresult = true,
+        fieldalignment = true,
+        unreachable = true,
+        ST1003 = true, -- naming
+      },
+
+      annotations = {
+        bounds = true,
+        escape = true,
+        inline = true,
+        nil = true,
+      },
+
+      -- ========================
+      -- CODE LENSES
+      -- ========================
+      codelenses = {
+        generate = true,
+        gc_details = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+        regenerate_cgo = true,
+      },
+
+      -- ========================
+      -- HOVER / DOCS
+      -- ========================
+      hoverKind = "FullDocumentation",
+      linksInHover = true,
+      linkTarget = "pkg.go.dev",
+
+      -- ========================
+      -- INLAY HINTS
+      -- ========================
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+
+      -- ========================
+      -- NAVIGATION / SYMBOLS
+      -- ========================
+      importShortcut = "Both",
+      symbolStyle = "Dynamic",
+
+      -- ========================
+      -- UI / SEMANTIC TOKENS
+      -- ========================
+      semanticTokens = true,
+      noSemanticString = false,
+      noSemanticNumber = false,
+
+      -- ========================
+      -- DEBUG / ADVANCED
+      -- ========================
+      verboseOutput = false,
+    },
+  },
+}

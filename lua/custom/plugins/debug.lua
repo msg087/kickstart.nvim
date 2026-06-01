@@ -17,7 +17,7 @@ return {
       'jay-babu/mason-nvim-dap.nvim',
 
       -- Add your own debuggers here
-      -- 'leoluz/nvim-dap-go',
+      'leoluz/nvim-dap-go',
       --
       'mfussenegger/nvim-dap-python',
       'theHamsta/nvim-dap-virtual-text',
@@ -32,9 +32,15 @@ return {
         -- see mason-nvim-dap README for more information
         handlers = {},
         ensure_installed = {
-          'delve',
+          -- 'delve',
           'bash-debug-adapter',
           'debugpy',
+        },
+      }
+
+      require('dap-go').setup {
+        delve = {
+          path = vim.fn.expand '~/go/bin/dlv',
         },
       }
 
@@ -141,6 +147,36 @@ return {
         },
       }
 
+      dap.configurations.go = {
+        {
+          type = 'go',
+          name = 'Debug File',
+          request = 'launch',
+          program = '${file}',
+          args = {},
+        },
+        {
+          type = 'go',
+          name = 'Debug File (with args)',
+          request = 'launch',
+          program = '${file}',
+          args = function()
+            local input = vim.fn.input 'Args: '
+            return vim.split(input, ' ')
+          end,
+        },
+        {
+          type = 'go',
+          name = 'Debug Package (with args)',
+          request = 'launch',
+          program = '${workspaceFolder}',
+          args = function()
+            local input = vim.fn.input 'Args: '
+            return vim.split(input, ' ')
+          end,
+        },
+      }
+
       -- Basic debugging keymaps, feel free to change to your liking!
       -- vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
       -- vim.keymap.set('n', '<F1>', dap.step_into, { desc = 'Debug: Step Into' })
@@ -159,6 +195,16 @@ return {
       vim.keymap.set('n', '<leader>dB', function()
         dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
       end, { desc = 'Debug: Set Breakpoint' })
+
+      vim.keymap.set('n', '<leader>da', function()
+        require('dap').run {
+          type = 'go',
+          name = 'Debug with Args',
+          request = 'launch',
+          program = '${file}',
+          args = vim.split(vim.fn.input 'Args: ', ' '),
+        }
+      end, { desc = 'Debug Go with args' })
 
       -- Dap UI setup
       -- For more information, see |:help nvim-dap-ui|
@@ -190,7 +236,7 @@ return {
       dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
       -- Install golang specific config
-      require('dap-go').setup()
+      -- require('dap-go').setup()
     end,
   },
 }

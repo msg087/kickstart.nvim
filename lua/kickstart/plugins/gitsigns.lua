@@ -66,6 +66,30 @@ return {
       map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle git show [b]lame line' })
       map('n', '<leader>tw', gitsigns.toggle_word_diff, { desc = '[T]oggle git intra-line [w]ord diff' })
 
+      local function last_tag()
+        local tag = vim.fn.systemlist('git describe --tags --abbrev=0')[1]
+        if vim.v.shell_error ~= 0 or not tag or tag == '' then
+          vim.notify('No git tag found for this repo', vim.log.levels.WARN)
+          return nil
+        end
+        return tag
+      end
+
+      map('n', '<leader>ht', function()
+        local tag = last_tag()
+        if tag then
+          gitsigns.diffthis(tag)
+        end
+      end, { desc = 'git diff against last [t]ag' })
+
+      map('n', '<leader>hT', function()
+        local tag = last_tag()
+        if tag then
+          vim.cmd.Gitsigns { 'change_base', tag }
+          vim.notify('Gitsigns base changed to ' .. tag)
+        end
+      end, { desc = 'git signs against last [T]ag' })
+
       -- Text object
       map({ 'o', 'x' }, 'ih', gitsigns.select_hunk)
     end,
