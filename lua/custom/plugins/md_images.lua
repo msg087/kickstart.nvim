@@ -24,7 +24,7 @@ return {
     -- build = false,
     config = function()
       require('image').setup {
-        backend = 'sixel', -- or "ueberzug" / "sixel" "kitty"
+        backend = 'kitty', -- or "ueberzug" / "sixel" "kitty"
         kitty_method = 'normal', -- default used internally
 
         processor = 'magick_rock', --or magick_cli or magick_rock
@@ -88,7 +88,7 @@ return {
 
   {
     '3rd/diagram.nvim',
-    enabled = false,
+    enabled = true,
     ft = { 'markdown', 'vimwiki' },
     dependencies = {
       { '3rd/image.nvim' },

@@ -57,6 +57,25 @@
 --   vim.api.nvim_feedkeys(keys, 'n', false)
 -- end
 
+require('custom.custom_modules.go_tmpl_ft').setup()
+
+-- vim.filetype.add {
+--   extension = {
+--     tmpl = function(_, bufnr)
+--       print 'tmpl detector ran'
+
+--       local text = table.concat(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false), '\n')
+
+--       if text:match '^%s*<[%w_%-]+>' and text:match '</[%w_%-]+>%s*$' then
+--         print 'matched xml'
+--         return 'xml'
+--       end
+
+--       print 'no match'
+--     end,
+--   },
+-- }
+
 -- Run visually selected lines in Molten
 vim.keymap.set('v', '<leader>mr', ':<C-u>MoltenEvaluateVisual<CR>gv', {
   desc = 'Molten: run visual selection',
@@ -357,7 +376,17 @@ return {
     build = 'cd app && npm install',
     init = function()
       vim.g.mkdp_filetypes = { 'markdown' }
-      vim.g.mkdp_browser = 'wslview'
+      -- vim.g.mkdp_echo_preview_url = 1
+      -- vim.g.mkdp_browser = 'wslview'
+
+      vim.g.mkdp_browser = ''
+      vim.g.mkdp_browserfunc = 'OpenMarkdownPreview'
+
+      vim.cmd [[
+      function! OpenMarkdownPreview(url)
+        call jobstart(['wslview', a:url], {'detach': v:true})
+      endfunction
+    ]]
 
       -- " normal/insert
       -- <Plug>MarkdownPreview
@@ -406,18 +435,4 @@ return {
       },
     },
   },
-
-  -- {
-  --   -- Use spaces instead of tabs in Go files
-  -- vim.api.nvim_create_autocmd("FileType", {
-  -- pattern = "go",
-  -- callback = function()
-  --   vim.bo.expandtab = true     -- use spaces, not tabs
-  --   vim.bo.shiftwidth = 4       -- indentation size
-  --   vim.bo.tabstop = 4          -- number of spaces per tab
-  --   vim.bo.softtabstop = 4
-  -- end,
-  -- })
-
-  -- },
 }

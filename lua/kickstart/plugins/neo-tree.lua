@@ -3,6 +3,7 @@
 
 return {
   'nvim-neo-tree/neo-tree.nvim',
+  enabled = false,
   version = '*',
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -10,9 +11,11 @@ return {
     'MunifTanjim/nui.nvim',
   },
   cmd = 'Neotree',
-  keys = {
-    { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
-  },
+  -- keys = {
+  --   { '\\', ':Neotree reveal<CR>', desc = 'NeoTree reveal' },
+  -- },
+  vim.keymap.set('n', '\\', '<Cmd>Neotree reveal<CR>', { desc = 'NeoTree reveal', silent = true }),
+
   opts = {
     filesystem = {
       window = {

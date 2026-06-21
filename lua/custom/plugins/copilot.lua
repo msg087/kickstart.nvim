@@ -21,6 +21,7 @@ return {
       panel = { enabled = false },
       filetypes = {
         markdown = true,
+        go = true,
         python = true,
         bash = true,
         lua = true,
@@ -38,8 +39,6 @@ return {
       end, { noremap = true, silent = true })
     end,
   },
-
-
 
   -- {
   --   vim.api.nvim_create_autocmd('User', {

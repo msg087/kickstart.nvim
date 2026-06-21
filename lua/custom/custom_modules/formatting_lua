@@ -1,0 +1,48 @@
+local M = {}
+
+local function executable_or_warn(bin)
+  if vim.fn.executable(bin) ~= 1 then
+    vim.notify(bin .. ' not installed', vim.log.levels.ERROR)
+    return false
+  end
+
+  return true
+end
+
+local function filter_buffer(cmd)
+  vim.cmd('%!' .. cmd)
+end
+
+M.format_escaped_json = function()
+  if not executable_or_warn 'jq' then
+    return
+  end
+
+  filter_buffer [[jq -r 'fromjson']]
+end
+
+M.format_json = function()
+  if not executable_or_warn 'jq' then
+    return
+  end
+
+  filter_buffer 'jq .'
+end
+
+M.format_xml = function()
+  if not executable_or_warn 'xmllint' then
+    return
+  end
+
+  filter_buffer 'xmllint --format -'
+end
+
+M.recover_xml = function()
+  if not executable_or_warn 'xmllint' then
+    return
+  end
+
+  filter_buffer 'xmllint --recover --format -'
+end
+
+return M
