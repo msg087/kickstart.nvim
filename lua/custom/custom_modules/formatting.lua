@@ -88,8 +88,10 @@ local function make_formatter(bin, cmd)
 end
 
 M.format_json = make_formatter('jq', 'jq .')
+M.format_json_collapse = make_formatter('jq', 'jq -c .')
 M.format_escaped_json = make_formatter('jq', [[jq -r 'fromjson']])
 M.expand_embedded_json = make_formatter('jq', embedded_json_jq)
+M.jsonlines_to_array = make_formatter('jq', [[jq --slurp '.']])
 
 --xml
 M.format_xml = make_formatter('xmllint', 'xmllint --format -')

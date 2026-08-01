@@ -1,4 +1,6 @@
 local fmt = require 'custom.custom_modules.formatting'
+local replace = require 'custom.custom_modules.replace_all_text'
+local tiktoken = require 'custom.custom_modules.go_tiktoken'
 
 return {
   { -- Useful plugin to show you pending keybinds.
@@ -65,10 +67,19 @@ return {
 
         { '<leader>F', group = '[F]ormat custom', nowait = false, remap = false },
         { '<leader>Fjj', fmt.format_json, desc = 'Format JSON', nowait = false, remap = false },
+        { '<leader>Fjc', fmt.format_json_collapse, desc = 'Format JSON [c]ollapsed', nowait = false, remap = false },
+
         { '<leader>Fje', fmt.format_escaped_json, desc = 'Format [e]scaped JSON', nowait = false, remap = false },
         { '<leader>Fjn', fmt.expand_embedded_json, desc = 'Format [n]ested escaped JSON', nowait = false, remap = false },
+        { '<leader>Fjl', fmt.jsonlines_to_array, desc = 'Format [l]ines json to array', nowait = false, remap = false },
         { '<leader>Fxx', fmt.format_xml, desc = 'Format [x]ml', nowait = false, remap = false },
         { '<leader>Fxr', fmt.recover_xml, desc = 'Format [r]ecover xml', nowait = false, remap = false },
+
+        { '<leader>Fr', replace.find_all_text, desc = 'Find and [r]eplace all Text in current dir', nowait = false, remap = false },
+
+        { '<leader>L', group = '[L]LM' },
+        { '<leader>Lk', tiktoken.file, desc = 'Token count (file)', nowait = false, remap = false, mode = { 'n' } },
+        { '<leader>Lk', tiktoken.selection, desc = 'Token count (selection)', nowait = false, remap = false, mode = { 'v' } },
       },
     },
   },

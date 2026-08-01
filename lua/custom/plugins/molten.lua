@@ -111,7 +111,7 @@ end, {
 return {
   {
     'benlubas/molten-nvim',
-    enabled = false,
+    enabled = true,
     version = '*',
     build = ':UpdateRemotePlugins',
     lazy = false, -- load on startup so commands are always available

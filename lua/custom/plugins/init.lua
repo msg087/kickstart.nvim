@@ -1,3 +1,13 @@
+-- vim.api.nvim_create_autocmd('FileType', {
+--   pattern = 'markdown',
+--   callback = function()
+--     vim.opt_local.conceallevel = 2
+--     -- Hide conceal characters in Normal, Visual, and Command modes,
+--     -- but show them when the cursor is on that exact line (Insert mode / active line)
+--     vim.opt_local.concealcursor = 'nc'
+--   end,
+-- })
+
 -- function MyFoldtext()init
 --   local text = vim.treesitter.foldtext()
 --
