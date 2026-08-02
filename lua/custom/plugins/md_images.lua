@@ -88,7 +88,7 @@ return {
 
   {
     '3rd/diagram.nvim',
-    enabled = true,
+    enabled = false,
     ft = { 'markdown', 'vimwiki' },
     dependencies = {
       { '3rd/image.nvim' },

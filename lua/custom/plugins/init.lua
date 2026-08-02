@@ -282,28 +282,6 @@ return {
     -- consider terrortylor/nvim-comment as well
     'tpope/vim-commentary',
   },
-  -- -- Database
-  { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-  -- { 'tpope/vim-dadbod', lazy = true },
-  { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-  {
-
-    'kristijanhusak/vim-dadbod-ui',
-    lazy = true,
-    opts = {
-      db_ui_execute_on_save = false,
-    },
-    -- }
-    dependencies = {
-      { 'tpope/vim-dadbod', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-      { 'kristijanhusak/vim-dadbod-completion', ft = { 'sql', 'mysql', 'plsql' }, lazy = true },
-    },
-    config = function()
-      -- Your DBUI configuration
-      vim.g.db_ui_use_nerd_fonts = 1
-      vim.g.db_ui_execute_on_save = 0
-    end,
-  },
 
   --   {
   --   'nvim-lua/plenary.nvim',  -- Any already-installed plugin

@@ -1,66 +1,71 @@
 {
   "mcpServers": {
+    "brave-search": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "command": "npx",
+      "custom_instructions": {
+        "disabled": false,
+        "text": "search tool to get recent docs"
+      },
+      "disabled": true,
+      "env": {
+        "BRAVE_API_KEY": ""
+      },
+      "prompts": {
+        "recent_docs": {
+          "description": "Retrieve recent documentation related to code to assist the user using the brave search",
+          "params": {
+            "query": "recent documentation for code"
+          },
+          "tool": "search"
+        }
+      },
+      "slash_commands": true
+    },
+    "gographify": {
+      "disabled": false,
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:9090/sse"
+    },
+    "mcp-go-lsp": {
+      "args": [
+        "--workspace",
+        "/home/msg/code/go_aws_lambda_webhook",
+        "--lsp",
+        "/home/msg/go/bin/gopls"
+      ],
+      "command": "/home/msg/code/mcp_servers/mcp-language-server/mcp-language-server",
+      "disabled": false,
+      "env": {
+        "GOCACHE": "/home/msg/.cache/go-build",
+        "GOMODCACHE": "/home/msg/go/pkg/mod",
+        "GOPATH": "/home/msg/go",
+        "LOG_LEVEL": "DEBUG"
+      }
+    },
+    "my-test-mcp-server": {
+      "disabled": false,
+      "type": "streamable-http",
+      "url": "http://127.0.0.1:9400/mcp"
+    },
+    "postgres": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-postgres",
+        "postgresql://app_user:app_password@localhost:5432/vm"
+      ],
+      "command": "npx",
+      "disabled": true
+    },
     "shadcn": {
       "args": [
         "shadcn@latest",
         "mcp"
       ],
       "command": "bunx"
-    },
-    "postgres": {
-      "disabled": true,
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-postgres",
-        "postgresql://app_user:app_password@localhost:5432/vm"
-      ],
-      "command": "npx"
-    },
-    "my-test-mcp-server": {
-      "disabled": false,
-      "url": "http://127.0.0.1:9400/mcp",
-      "type": "streamable-http"
-    },
-    "mcp-go-lsp": {
-      "disabled": false,
-      "command": "/home/msg/code/mcp_servers/mcp-language-server/mcp-language-server",
-      "env": {
-        "GOMODCACHE": "/home/msg/go/pkg/mod",
-        "GOCACHE": "/home/msg/.cache/go-build",
-        "GOPATH": "/home/msg/go",
-        "LOG_LEVEL": "DEBUG"
-      },
-      "args": [
-        "--workspace",
-        "/home/msg/code/go_aws_lambda_webhook",
-        "--lsp",
-        "/home/msg/go/bin/gopls"
-      ]
-    },
-    "brave-search": {
-      "slash_commands": true,
-      "command": "npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-brave-search"
-      ],
-      "disabled": true,
-      "prompts": {
-        "recent_docs": {
-          "params": {
-            "query": "recent documentation for code"
-          },
-          "tool": "search",
-          "description": "Retrieve recent documentation related to code to assist the user using the brave search"
-        }
-      },
-      "env": {
-        "BRAVE_API_KEY": ""
-      },
-      "custom_instructions": {
-        "disabled": false,
-        "text": "search tool to get recent docs"
-      }
     }
   }
 }

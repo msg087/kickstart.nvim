@@ -34,7 +34,7 @@ Kickstart Guide:
 --  For more options, you can see `:help option-list`
 --
 local has_luarocks = vim.fn.executable 'luarocks' == 1
--- vim.notify('LuaRocks available: ' .. tostring(has_luarocks))
+vim.notify('LuaRocks available: ' .. tostring(has_luarocks))
 
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
