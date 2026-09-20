@@ -156,7 +156,7 @@ return {
           --  See `:help K` for why this keymap.
           -- map('K', vim.lsp.buf.hover, 'Hover Documentation')
           map('K', function()
-            vim.lsp.buf.hover { focusable = false }
+            vim.lsp.buf.hover { focusable = false, border = 'rounded' }
           end, 'Hover Documentation')
 
           -- -- WARN: This is not Goto Definition, this is Goto Declaration.

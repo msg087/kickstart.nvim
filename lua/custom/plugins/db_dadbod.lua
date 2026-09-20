@@ -1,6 +1,6 @@
 return {
   {
-    'kristijanhusak/vim-dadbod-ui',
+    'msg087/vim-dadbod-ui',
 
     cmd = {
       'DBUI',
