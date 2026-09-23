@@ -9,6 +9,10 @@ local function sev_name(sev)
   })[sev] or tostring(sev)
 end
 
+local function append_lines(lines, text)
+  vim.list_extend(lines, vim.split(tostring(text or ''), '\n', { plain = true }))
+end
+
 function M.open(opts)
   opts = opts or {}
 
@@ -40,29 +44,44 @@ function M.open(opts)
     local end_col = (d.end_col or d.col or 0) + 1
 
     table.insert(lines, ('## %d. [%s] %s'):format(i, sev_name(d.severity), d.source or ns.name or 'unknown'))
+
     table.insert(lines, ('range: %d:%d -> %d:%d'):format(lnum, col, end_lnum, end_col))
+
     table.insert(lines, ('code: %s'):format(d.code or ''))
     table.insert(lines, '')
-    table.insert(lines, d.message or '')
+
+    append_lines(lines, d.message)
+
     table.insert(lines, '')
 
     local related = d.user_data and d.user_data.lsp and d.user_data.lsp.relatedInformation
 
     if related then
       table.insert(lines, 'related:')
+
       for _, r in ipairs(related) do
         local loc = r.location or {}
         local uri = loc.uri or ''
         local range = loc.range or {}
         local start = range.start or {}
 
-        table.insert(lines, ('- %s:%s:%s %s'):format(uri:gsub('^file://', ''), (start.line or 0) + 1, (start.character or 0) + 1, r.message or ''))
+        local prefix = ('- %s:%s:%s '):format(uri:gsub('^file://', ''), (start.line or 0) + 1, (start.character or 0) + 1)
+
+        local msg_lines = vim.split(tostring(r.message or ''), '\n', { plain = true })
+
+        table.insert(lines, prefix .. (msg_lines[1] or ''))
+
+        for j = 2, #msg_lines do
+          table.insert(lines, '  ' .. msg_lines[j])
+        end
       end
+
       table.insert(lines, '')
     end
   end
 
   local scratch = vim.api.nvim_create_buf(false, true)
+
   vim.api.nvim_buf_set_name(scratch, 'lsp-diagnostics-scratch')
   vim.api.nvim_buf_set_lines(scratch, 0, -1, false, lines)
 
