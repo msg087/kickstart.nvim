@@ -1,6 +1,7 @@
 local fmt = require 'custom.custom_modules.formatting'
 local replace = require 'custom.custom_modules.replace_all_text'
 local tiktoken = require 'custom.custom_modules.go_tiktoken'
+local sql_format = require 'custom.custom_modules.format_commas'
 
 return {
   { -- Useful plugin to show you pending keybinds.
@@ -76,6 +77,9 @@ return {
         { '<leader>Fxr', fmt.recover_xml, desc = 'Format [r]ecover xml', nowait = false, remap = false },
 
         { '<leader>Fr', replace.find_all_text, desc = 'Find and [r]eplace all Text in current dir', nowait = false, remap = false },
+
+        -- { '<leader>F', group = '[F]ormat custom', nowait = false, remap = false },
+        { '<leader>Fsc', sql_format.format_sql_columns, desc = 'Format [s]ql lines [c]ommas', nowait = false, remap = false, mode = { 'v', 'n' } },
 
         { '<leader>L', group = '[L]LM' },
         { '<leader>Lk', tiktoken.file, desc = 'Token count (file)', nowait = false, remap = false, mode = { 'n' } },

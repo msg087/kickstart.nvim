@@ -36,14 +36,20 @@ function M.open(opts)
     '',
   }
 
+  local sources = {}
+
   for i, d in ipairs(diagnostics) do
     local ns = d.namespace and vim.diagnostic.get_namespace(d.namespace) or {}
+    local source = d.source or ns.name or 'unknown'
+
+    sources[source] = true
+
     local lnum = (d.lnum or 0) + 1
     local col = (d.col or 0) + 1
     local end_lnum = (d.end_lnum or d.lnum or 0) + 1
     local end_col = (d.end_col or d.col or 0) + 1
 
-    table.insert(lines, ('## %d. [%s] %s'):format(i, sev_name(d.severity), d.source or ns.name or 'unknown'))
+    table.insert(lines, ('## %d. [%s] %s'):format(i, sev_name(d.severity), source))
 
     table.insert(lines, ('range: %d:%d -> %d:%d'):format(lnum, col, end_lnum, end_col))
 
@@ -77,6 +83,20 @@ function M.open(opts)
       end
 
       table.insert(lines, '')
+    end
+  end
+
+  local source_names = vim.tbl_keys(sources)
+  table.sort(source_names)
+
+  if #source_names > 0 then
+    table.insert(lines, '---')
+    table.insert(lines, '')
+    table.insert(lines, '## Diagnostic Sources')
+    table.insert(lines, '')
+
+    for _, source in ipairs(source_names) do
+      table.insert(lines, '- ' .. source)
     end
   end
 
