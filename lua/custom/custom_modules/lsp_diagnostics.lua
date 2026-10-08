@@ -101,6 +101,7 @@ function M.open(opts)
   end
 
   local scratch = vim.api.nvim_create_buf(false, true)
+  vim.diagnostic.enable(false, { bufnr = scratch })
 
   vim.api.nvim_buf_set_name(scratch, 'lsp-diagnostics-scratch')
   vim.api.nvim_buf_set_lines(scratch, 0, -1, false, lines)
